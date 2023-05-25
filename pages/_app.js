@@ -11,7 +11,7 @@ function MyApp({ Component, pageProps, router }) {
       <Head>
         <title></title>
         <meta name="theme-color" content="#673AB6" />
-        <link rel="shortcut icon" href="images/logo.png" />
+        <link rel="shortcut icon" href="images/fav.png" />
       </Head>
 
       <Component {...pageProps} key={router.asPath} />

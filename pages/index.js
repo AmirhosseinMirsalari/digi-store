@@ -1,8 +1,9 @@
+import axios from "axios";
 import Navbar from "components/Navbar";
 import { ResponseToArray } from "lib/ResponseToArray";
 import Head from "next/head";
 
-const Home = () => {
+const Home = ({ mainCategory, category }) => {
   return (
     <>
       <Head>
