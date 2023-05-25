@@ -25,6 +25,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { addProductToCart,removeProductFromCart  } from "redux/AddToCart";
 import logo from "../public/images/logo.png";
+import SidebarCategoryNav from "./SidebarCategoryNav";
 
 const Navbar = ({ mainCategory, category }) => {
   // useState
@@ -225,9 +226,9 @@ const Navbar = ({ mainCategory, category }) => {
               >
                 <Link href="/">
                   <Image
-                    width={80}
+                    width={100}
                     height={20}
-                    src="https://www.digikala.com/statics/img/svg/digi.svg"
+                    src={logo}
                     alt=""
                   />
                 </Link>
@@ -298,7 +299,7 @@ const Navbar = ({ mainCategory, category }) => {
 
               <h5 className="text-sm font-bold py-6 pr-8">دسته بندی کالاها</h5>
               {/* <MobileNavbar /> */}
-              {/* <ul className="text-[13px] font-bold">
+              <ul className="text-[13px] font-bold">
                 {mainCategory.map((mainCategory, index) => (
                   <SidebarCategoryNav
                     mainCategory={mainCategory}
@@ -306,7 +307,7 @@ const Navbar = ({ mainCategory, category }) => {
                     category={category}
                   />
                 ))}
-              </ul> */}
+              </ul>
             </div>
           </div>
 
@@ -433,14 +434,14 @@ const Navbar = ({ mainCategory, category }) => {
                                 <div className="flex flex-col mr-3">
                                   <div className="flex justify-between items-center ">
                                     <h5 className=" text-[#424750] text-xs font-bold ml-auto">
-                                      موجود در انبار دیجی کالا
+                                      موجود در انبار دیجی استور
                                     </h5>
                                     <KeyboardArrowLeftOutlinedIcon className="" />
                                   </div>
                                   <div className="flex items-center gap-x-1 text-sm pt-2">
                                     <LocalShippingOutlinedIcon className="w-4 h-4 stroke-[#e6123d]" />
                                     <p className="text-slate-600 text-[12px] font-normal">
-                                      ارسال دیجیکالا
+                                      ارسال دیجی استور
                                     </p>
                                   </div>
                                 </div>
