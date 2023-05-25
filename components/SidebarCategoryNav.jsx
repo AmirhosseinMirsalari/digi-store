@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import Link from "next/link";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
+import SidebarSubCategoryNav from "./SidebarSubCategoryNav";
 
 const SidebarCategoryNav = ({ mainCategory, index, category }) => {
   const [openMobileNavbarCategory, setOpenMobileNavbarCategory] =
@@ -40,7 +41,7 @@ const SidebarCategoryNav = ({ mainCategory, index, category }) => {
           .map((category, indexs) => (
             <div className="bg-[#f1f2f4]">
             
-            {/* <SidebarSubCategoryNav mainCategorySlug={mainCategory.slug} category={category} indexs={indexs} /> */}
+            <SidebarSubCategoryNav mainCategorySlug={mainCategory.slug} category={category} indexs={indexs} />
             </div>
           ))}
       </div>
