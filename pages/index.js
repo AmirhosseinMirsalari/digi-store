@@ -23,12 +23,12 @@ export default Home;
 
 export async function getServerSideProps({ params }) {
   let mainCategoryResponse = await axios.get(
-    "http://localhost:1337/api/main-categories?populate[0]=sliders&populate[1]=banners"
+    "/main-categories?populate[0]=sliders&populate[1]=banners"
   );
   const mainCategory = ResponseToArray(mainCategoryResponse);
 
   let categoryResponse = await axios.get(
-    "http://localhost:1337/api/categories?populate[0]=sub_categories"
+    "/categories?populate[0]=sub_categories"
   );
   const category = ResponseToArray(categoryResponse);
 
