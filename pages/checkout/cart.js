@@ -12,9 +12,9 @@ import LocalShippingOutlinedIcon from "@mui/icons-material/LocalShippingOutlined
 import AddCircleOutlinedIcon from "@mui/icons-material/AddCircleOutlined";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 import RemoveOutlinedIcon from "@mui/icons-material/RemoveOutlined";
-import { addProductToCart, removeProductFromCart } from "redux/AddToCart";
+import { addProductToCart, removeAllFromCart, removeProductFromCart } from "redux/AddToCart";
 import axios from "axios";
-
+import { useEffect, useRef, useState } from "react";
 
 const HomePage = ({ mainCategories, category }) => {
   const cartBasketItem = useSelector((item) => item.cart);
@@ -31,6 +31,72 @@ const HomePage = ({ mainCategories, category }) => {
     dispatch(removeProductFromCart(product));
   };
 
+  const removeAllCart = () => {
+    toast.success("خرید شما با موفقیت ثبت شد !", {
+      position: "bottom-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+    dispatch(removeAllFromCart());
+  };
+
+  const scrollToTopRef = useRef();
+
+  useEffect(() => {
+    scrollToTopRef?.current?.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  });
+
+  const [showSticky, setShowSticky] = useState(false);
+  const [scrollPos, setScrollPos] = useState(0);
+
+  const nav = useRef();
+
+  const controllNavbar = () => {
+    setShowSticky(true);
+    if (window.scrollY > 100) {
+      setScrollPos(document.body.getBoundingClientRect().top);
+      if (document.body.getBoundingClientRect().top < scrollPos) {
+        setShowSticky(false);
+      } else {
+        setShowSticky(true);
+      }
+    } else {
+      setShowSticky(true);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", controllNavbar);
+    return () => {
+      window.removeEventListener("scroll", controllNavbar);
+    };
+  }, [scrollPos, showSticky]);
+
+  const itemsPrice = cartBasketItem?.cart
+    ?.map((item) => Number(item.price) * Number(item.quantity))
+    .reduce(function (previous, current) {
+      return previous + current;
+    }, 0);
+
+  const totalShoppingCartDiscount = cartBasketItem?.cart
+    ?.map(
+      (item) =>
+        Number(item.price) * (Number(item.offer) / 100) * Number(item.quantity)
+    )
+    .reduce(function (previous, current) {
+      return previous + current;
+    }, 0);
+
+  let totalShoppingCart = itemsPrice - totalShoppingCartDiscount;
+
+  let discountPercent = Math.round((totalShoppingCart * 100) / itemsPrice);
+
   return (
     <>
       <Head>
@@ -40,7 +106,7 @@ const HomePage = ({ mainCategories, category }) => {
 
       <div className="flex !justify-center">
         <div className="flex justify-center max-w-screen-2xl w-full lg:mx-24 py-12 lg:gap-x-4">
-        {cartBasketLength > 0 ? (
+          {cartBasketLength > 0 ? (
             <>
               {/* basket items */}
               <div className="flex flex-col flex-1 border rounded-lg">
@@ -146,6 +212,59 @@ const HomePage = ({ mainCategories, category }) => {
                 </div>
               </div>
 
+              {/* basket */}
+              <div
+                ref={nav}
+                className={`absolute lg:!sticky select-none w-full lg:w-[300px] h-fit   lg:!bg-white lg:border my-4 lg:my-0 rounded-lg py-5 z-50 lg:z-0 ${
+                  showSticky ? "top-32 transition-300" : "top-20 transition-300"
+                } `}
+              >
+                <div className=" w-full lg:px-5 px-2 sm:px-12 h-auto  fixed bottom-0 right-0 lg:relative  flex flex-row-reverse justify-between items-center bg-white py-2 z-40 border border-l-0 border-r-0 border-b-0 border-gray-200 lg:flex-col lg:flex lg:items-end lg:w-full  lg:border-0 lg:gap-y-3 lg:py-3">
+                  <div className="flex flex-col w-full gap-y-1 ">
+                    <div className="hidden lg:flex justify-between text-[#5a5c7a] pt-3">
+                      <p className="text-xs font-bold">
+                        قیمت کالا ها ({totalBasketCart})
+                      </p>
+                      <p className="text-[15px] font-bold">
+                        {/* {totalBasketCart} */}
+                        {Number(itemsPrice).toLocaleString()} تومان
+                      </p>
+                    </div>
+
+                    <div className="flex flex-col lg:flex-row items-end gap-y-1 lg:justify-between text-[#23254e]  pt-3">
+                      <p className="text-xs font-bold">جمع سبد خرید</p>
+                      <p className="text-[15px] font-bold">
+                        {/* {totalBasketCart} */}
+                        {Number(totalShoppingCart).toLocaleString()} تومان
+                      </p>
+                    </div>
+                    {/* #ef4056 */}
+
+                    {totalShoppingCartDiscount && (
+                      <div className="hidden lg:flex justify-between text-[#ef4056] pt-3">
+                        <p className="text-xs font-bold">
+                          جمع سود شما ({100 - discountPercent}%)
+                        </p>
+                        <p className="text-base font-bold">
+                          {/* {totalBasketCart} */}
+                          {Number(
+                            totalShoppingCartDiscount
+                          ).toLocaleString()}{" "}
+                          تومان
+                        </p>
+                      </div>
+                    )}
+                  </div>
+
+                  <button
+                    ref={scrollToTopRef}
+                    onClick={removeAllCart}
+                    className="bg-[#ef394e] w-full text-xs text-center text-white px-6 py-2 sm:px-12 sm:py-3 rounded-lg font-bold h-fit lg:w-full lg:px-0"
+                  >
+                    ثبت سفارش
+                  </button>
+                </div>
+              </div>
             </>
           ) : (
             <div className="flex flex-col justify-center items-center w-full h-auto border rounded-lg py-6">
