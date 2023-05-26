@@ -12,18 +12,66 @@ import LocalShippingOutlinedIcon from "@mui/icons-material/LocalShippingOutlined
 import AddCircleOutlinedIcon from "@mui/icons-material/AddCircleOutlined";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 import RemoveOutlinedIcon from "@mui/icons-material/RemoveOutlined";
-import { addProductToCart, removeAllFromCart, removeProductFromCart } from "redux/AddToCart";
+import {
+  addProductToCart,
+  removeAllFromCart,
+  removeProductFromCart,
+} from "redux/AddToCart";
 import axios from "axios";
 import { useEffect, useRef, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 
-
 const HomePage = ({ mainCategories, category }) => {
+  const [showSticky, setShowSticky] = useState(false);
+  const [scrollPos, setScrollPos] = useState(0);
+
+  const nav = useRef();
+
+  const controllNavbar = () => {
+    setShowSticky(true);
+    if (window.scrollY > 100) {
+      setScrollPos(document.body.getBoundingClientRect().top);
+      if (document.body.getBoundingClientRect().top < scrollPos) {
+        setShowSticky(false);
+      } else {
+        setShowSticky(true);
+      }
+    } else {
+      setShowSticky(true);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", controllNavbar);
+    return () => {
+      window.removeEventListener("scroll", controllNavbar);
+    };
+  }, [scrollPos, showSticky]);
+
   const cartBasketItem = useSelector((item) => item.cart);
   const totalBasketCart = useSelector((item) => item.cart.total);
   const dispatch = useDispatch();
 
   const cartBasketLength = cartBasketItem?.cart?.map((item) => item).length;
+
+  const itemsPrice = cartBasketItem?.cart
+    ?.map((item) => Number(item.price) * Number(item.quantity))
+    .reduce(function (previous, current) {
+      return previous + current;
+    }, 0);
+
+  const totalShoppingCartDiscount = cartBasketItem?.cart
+    ?.map(
+      (item) =>
+        Number(item.price) * (Number(item.offer) / 100) * Number(item.quantity)
+    )
+    .reduce(function (previous, current) {
+      return previous + current;
+    }, 0);
+
+  let totalShoppingCart = itemsPrice - totalShoppingCartDiscount;
+
+  let discountPercent = Math.round((totalShoppingCart * 100) / itemsPrice);
 
   const addRedux = (product) => {
     dispatch(addProductToCart(product));
@@ -53,59 +101,12 @@ const HomePage = ({ mainCategories, category }) => {
       window.scrollTo({ top: 0, behavior: "smooth" });
     });
   });
-
-  const [showSticky, setShowSticky] = useState(false);
-  const [scrollPos, setScrollPos] = useState(0);
-
-  const nav = useRef();
-
-  const controllNavbar = () => {
-    setShowSticky(true);
-    if (window.scrollY > 100) {
-      setScrollPos(document.body.getBoundingClientRect().top);
-      if (document.body.getBoundingClientRect().top < scrollPos) {
-        setShowSticky(false);
-      } else {
-        setShowSticky(true);
-      }
-    } else {
-      setShowSticky(true);
-    }
-  };
-
-  useEffect(() => {
-    window.addEventListener("scroll", controllNavbar);
-    return () => {
-      window.removeEventListener("scroll", controllNavbar);
-    };
-  }, [scrollPos, showSticky]);
-
-  const itemsPrice = cartBasketItem?.cart
-    ?.map((item) => Number(item.price) * Number(item.quantity))
-    .reduce(function (previous, current) {
-      return previous + current;
-    }, 0);
-
-  const totalShoppingCartDiscount = cartBasketItem?.cart
-    ?.map(
-      (item) =>
-        Number(item.price) * (Number(item.offer) / 100) * Number(item.quantity)
-    )
-    .reduce(function (previous, current) {
-      return previous + current;
-    }, 0);
-
-  let totalShoppingCart = itemsPrice - totalShoppingCartDiscount;
-
-  let discountPercent = Math.round((totalShoppingCart * 100) / itemsPrice);
-
   return (
     <>
       <Head>
         <title>سبد خرید</title>
       </Head>
       <Navbar mainCategory={mainCategories} category={category} />
-
       <div className="flex !justify-center">
         <div className="flex justify-center max-w-screen-2xl w-full lg:mx-24 py-12 lg:gap-x-4">
           {cartBasketLength > 0 ? (
@@ -131,7 +132,6 @@ const HomePage = ({ mainCategories, category }) => {
                               src={product.thumbnail}
                               layout="fill"
                               objectFit="contain"
-                              alt=""
                             />
                           </div>
 
