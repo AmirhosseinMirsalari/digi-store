@@ -7,7 +7,6 @@ import { useRouter } from "next/router";
 const SidebarSubCategoryNav = ({ category, indexs, mainCategorySlug }) => {
   const [openCategoryNavbar, setOpenCategoryNavbar] = useState(false);
   const router = useRouter()
-  console.log(router);
 
   const toggleCategoryNavbar = (e) => {
     if (openCategoryNavbar == e) {
