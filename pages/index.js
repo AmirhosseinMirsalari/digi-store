@@ -6,6 +6,7 @@ import Head from "next/head";
 import Image from "next/image";
 import { useState } from "react";
 import AmazingOfferSlider from "components/AmazingOfferSlider";
+import QuadrupleBanner from "components/QuadrupleBanner";
 
 const Home = ({
   mainCategory,
@@ -93,6 +94,18 @@ const Home = ({
           product={offerProduct}
           color={AmazingOfferSliderColor}
         />
+
+        {/* <Digi Quadruple Banner /> */}
+
+        {homePageDetail.map((homePage) => {
+          return (
+            <QuadrupleBanner
+              QuardrupleBanners={homePage.banners.data.map((c) => c.attributes)}
+            />
+          );
+        })}
+
+
       </main>
     </>
   );
