@@ -9,6 +9,7 @@ import AmazingOfferSlider from "components/AmazingOfferSlider";
 import QuadrupleBanner from "components/QuadrupleBanner";
 import DigistoreCategories from "components/DigistoreCategories";
 import DigistoreSuggestion from "components/DigistoreSuggestion";
+import PopularBrands from "components/PopularBrands";
 
 const Home = ({
   mainCategory,
@@ -16,6 +17,7 @@ const Home = ({
   homePageDetail,
   DigistoreSubCategories,
   product,
+  brands
 }) => {
   const [click, setClick] = useState(false);
 
@@ -135,9 +137,12 @@ const Home = ({
           </div>
         </div>
 
-         {/* digistore suggestion products */}
+        {/* digistore suggestion products */}
 
-         <DigistoreSuggestion product={product} />
+        <DigistoreSuggestion product={product} />
+
+        {/* brands */}
+        <PopularBrands brands={brands} />
 
 
       </main>
@@ -175,6 +180,9 @@ export async function getServerSideProps({ params }) {
   );
   const product = ResponseToArray(productResponse);
 
+  let brandsResponse = await axios.get("http://localhost:1337/api/brands");
+  const brands = ResponseToArray(brandsResponse)
+
   return {
     props: {
       mainCategory,
@@ -182,6 +190,7 @@ export async function getServerSideProps({ params }) {
       homePageDetail,
       DigistoreSubCategories,
       product,
+      brands
     },
   };
 }
