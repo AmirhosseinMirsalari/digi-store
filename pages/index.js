@@ -17,7 +17,7 @@ const Home = ({
   homePageDetail,
   DigistoreSubCategories,
   product,
-  brands
+  brands,
 }) => {
   const [click, setClick] = useState(false);
 
@@ -144,6 +144,33 @@ const Home = ({
         {/* brands */}
         <PopularBrands brands={brands} />
 
+        {/* digistore banner */}
+
+        <div className="w-full h-auto flex flex-col md:flex-row gap-y-5 gap-x-5 my-10">
+          <div className="relative w-full h-52 lg:h-64 rounded-lg overflow-hidden">
+            <Image
+              src="https://dkstatics-public.digikala.com/digikala-adservice-banners/ccf429b44cea826989f5cda8a614d8ac0f94d772_1672227248.jpg?x-oss-process=image/quality,q_95"
+              alt=""
+              layout="fill"
+              objectFit="fill"
+            />
+          </div>
+
+          <div className="relative w-full h-52 lg:h-64 rounded-lg overflow-hidden">
+            <Image
+              src="https://dkstatics-public.digikala.com/digikala-adservice-banners/d5186195d5cfbde723226735a1077019e20ed9a3_1672223742.jpg?x-oss-process=image/quality,q_95"
+              alt=""
+              layout="fill"
+              objectFit="fill"
+            />
+          </div>
+        </div>
+
+        <img
+          className="rounded-lg h-16 lg:h-auto"
+          src="https://dkstatics-public.digikala.com/digikala-adservice-banners/abede523b20e3c6fd5addcae68a54e454cb95a5e_1654948996.jpg?x-oss-process=image/quality,q_95"
+          alt=""
+        />
 
       </main>
     </>
@@ -181,7 +208,7 @@ export async function getServerSideProps({ params }) {
   const product = ResponseToArray(productResponse);
 
   let brandsResponse = await axios.get("http://localhost:1337/api/brands");
-  const brands = ResponseToArray(brandsResponse)
+  const brands = ResponseToArray(brandsResponse);
 
   return {
     props: {
@@ -190,7 +217,7 @@ export async function getServerSideProps({ params }) {
       homePageDetail,
       DigistoreSubCategories,
       product,
-      brands
+      brands,
     },
   };
 }
