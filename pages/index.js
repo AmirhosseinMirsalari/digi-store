@@ -8,6 +8,7 @@ import { useState } from "react";
 import AmazingOfferSlider from "components/AmazingOfferSlider";
 import QuadrupleBanner from "components/QuadrupleBanner";
 import DigistoreCategories from "components/DigistoreCategories";
+import DigistoreSuggestion from "components/DigistoreSuggestion";
 
 const Home = ({
   mainCategory,
@@ -134,7 +135,11 @@ const Home = ({
           </div>
         </div>
 
-        
+         {/* digistore suggestion products */}
+
+         <DigistoreSuggestion product={product} />
+
+
       </main>
     </>
   );
