@@ -15,6 +15,8 @@ import RemoveOutlinedIcon from "@mui/icons-material/RemoveOutlined";
 import { addProductToCart, removeAllFromCart, removeProductFromCart } from "redux/AddToCart";
 import axios from "axios";
 import { useEffect, useRef, useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+
 
 const HomePage = ({ mainCategories, category }) => {
   const cartBasketItem = useSelector((item) => item.cart);
@@ -283,6 +285,23 @@ const HomePage = ({ mainCategories, category }) => {
           )}
         </div>
       </div>
+      <ToastContainer
+        position="bottom-right"
+        autoClose={3000}
+        style={{ width: "280px" }}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        toastStyle={{
+          backgroundColor: "#32cd32",
+          color: "white",
+          fontSize: "16px",
+        }}
+      />
     </>
   );
 };
