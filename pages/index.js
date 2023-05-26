@@ -6,8 +6,13 @@ import Head from "next/head";
 import Image from "next/image";
 import { useState } from "react";
 
-const Home = ({ mainCategory, category, homePageDetail,DigistoreSubCategories }) => {
+const Home = ({mainCategory, category, homePageDetail, DigistoreSubCategories, product }) => {
   const [click, setClick] = useState(false);
+
+  const offerProduct = product
+  ?.filter((product) => product.offer > 0)
+  ?.map((product) => product)
+  .sort((a, b) => b.sellCount - a.sellCount);
 
   return (
     <>
@@ -96,12 +101,18 @@ export async function getServerSideProps({ params }) {
   );
   const DigistoreSubCategories = ResponseToArray(DigistoreSubCategoriesResponse)
 
+  let productResponse = await axios.get(
+    `http://localhost:1337/api/products?populate[0]=seller_views&populate[1]=product_videos&populate[2]=product_images&populate[3]=products_values`
+  );
+  const product = ResponseToArray(productResponse)
+
   return {
     props: {
       mainCategory,
       category,
       homePageDetail,
       DigistoreSubCategories,
+      product
     },
   };
 }
