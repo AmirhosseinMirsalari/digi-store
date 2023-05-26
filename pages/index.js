@@ -4,12 +4,13 @@ import HomeSwiper from "components/HomeSwiper";
 import { ResponseToArray } from "lib/ResponseToArray";
 import Head from "next/head";
 import Image from "next/image";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import AmazingOfferSlider from "components/AmazingOfferSlider";
 import QuadrupleBanner from "components/QuadrupleBanner";
 import DigistoreCategories from "components/DigistoreCategories";
 import DigistoreSuggestion from "components/DigistoreSuggestion";
 import PopularBrands from "components/PopularBrands";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 const Home = ({
   mainCategory,
@@ -20,6 +21,7 @@ const Home = ({
   brands,
 }) => {
   const [click, setClick] = useState(false);
+  const modal = useRef();
 
   const AmazingOfferSliderColor = homePageDetail?.map(
     (color) => color.AmazingOfferSliderColor
@@ -172,6 +174,103 @@ const Home = ({
           alt=""
         />
 
+        {/* modal brand */}
+        <div
+          className={`transition-all duration-500  w-full h-full z-50  bottom-0 right-0  ${
+            click ? "fixed block" : "block"
+          }`}
+        >
+          <div className="w-full h-full opacity-10 bg-gray-900"></div>
+
+          <div
+            ref={modal}
+            className={`bg-white rounded-lg scrollCustomer w-full xl:h-[60vh] h-full lg:h-[90vh] overflow-y-scroll left-0 bottom-0  xl:w-1/3 absolute xl:left-1/2 xl:top-1/2 xl:-translate-x-1/2 xl:-translate-y-1/2 ${
+              click ? " block" : "hidden"
+            }`}
+          >
+            <div className="flex items-center  border-4 border-t-0 border-r-0 border-l-0 justify-between  w-auto mx-6 border-[#ef394e]">
+              <div className="w-auto h-auto text-center pt-2 pb-2 rounded-tr-lg rounded-tl-lg overflow-y-hidden">
+                خدمات دیجی استور
+              </div>
+
+              <svg
+                onClick={()=>setClick(false)}
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6 mr-auto scale-110 cursor-pointer"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </div>
+
+            <div className="flex flex-col mx-6">
+              <div className="flex flex-wrap my-8 gap-x-1">
+                {DigistoreSubCategories.filter(
+                  (subCategories) => subCategories.group == false
+                ).map((subCategories) => {
+                  return (
+                    <figure
+                      key={subCategories.id}
+                      className="flex flex-col items-center cursor-pointer py-2 mx-3"
+                    >
+                      <Image
+                        src={subCategories.image}
+                        height={52}
+                        width={52}
+                        objectFit="cover"
+                      />
+                      <figcaption className="text-[11px] text-[#424750] pt-2 font-bold">
+                        {subCategories.name}
+                      </figcaption>
+                    </figure>
+                  );
+                })}
+              </div>
+
+              <h5 className="text-[#81858b] text-sm font-bold">
+                سرویس های گروه دیجی استور
+              </h5>
+              <div className="grid grid-cols-2 gap-x-2 gap-y-4 mt-5 pb-8">
+                {DigistoreSubCategories.filter(
+                  (subCategories) => subCategories.group != false
+                ).map((subCategories) => {
+                  return (
+                    <figure
+                      key={subCategories.id}
+                      className="flex items-center px-2  border cursor-pointer py-4 rounded-lg"
+                    >
+                      <Image
+                        src={subCategories.image}
+                        height={52}
+                        width={52}
+                        objectFit="cover"
+                      />
+                      <figcaption className="flex flex-col justify-evenly mr-2 h-full w-full">
+                        <div className="flex justify-between items-center w-full mb-2">
+                          <p className="text-xs text-[#424750] font-bold">
+                            {subCategories.name}
+                          </p>
+                          <ArrowBackIcon className="fill-[#a1a3a8] w-6 h-6" />
+                        </div>
+                        <p className="text-[11px] text-[#81858b] font-bold break-words">
+                          {subCategories.description}
+                        </p>
+                      </figcaption>
+                    </figure>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        </div>
+        
       </main>
     </>
   );
