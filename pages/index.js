@@ -1,9 +1,10 @@
 import axios from "axios";
 import Navbar from "components/Navbar";
+import HomeSwiper from "components/HomeSwiper"
 import { ResponseToArray } from "lib/ResponseToArray";
 import Head from "next/head";
 
-const Home = ({ mainCategory, category }) => {
+const Home = ({ mainCategory, category, homePageDetail }) => {
   return (
     <>
       <Head>
@@ -15,7 +16,16 @@ const Home = ({ mainCategory, category }) => {
         />
       </Head>
       <Navbar mainCategory={mainCategory} category={category} />
-      <div>دیحی استور</div>
+
+      {/* carousel */}
+
+      {homePageDetail.map((homePage) => {
+        return (
+          <HomeSwiper
+            carousel={homePage.carousels.data.map((c) => c.attributes)}
+          />
+        );
+      })}
     </>
   );
 };
@@ -33,10 +43,16 @@ export async function getServerSideProps({ params }) {
   );
   const category = ResponseToArray(categoryResponse);
 
+  let homePageDetailResponse = await axios.get(
+    "/home-page-details?populate[0]=carousels&populate[1]=banners&populate[2]=baners"
+  );
+  const homePageDetail = ResponseToArray(homePageDetailResponse);
+
   return {
     props: {
       mainCategory,
       category,
+      homePageDetail,
     },
   };
 }
