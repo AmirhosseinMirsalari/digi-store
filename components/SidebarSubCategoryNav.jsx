@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 const SidebarSubCategoryNav = ({ category, indexs, mainCategorySlug }) => {
   const [openCategoryNavbar, setOpenCategoryNavbar] = useState(false);
   const router = useRouter()
+  console.log(router);
 
   const toggleCategoryNavbar = (e) => {
     if (openCategoryNavbar == e) {
@@ -38,12 +39,12 @@ const SidebarSubCategoryNav = ({ category, indexs, mainCategorySlug }) => {
             <KeyboardArrowLeftIcon className="fill-[#9e9fb1] w-4 h-4" />
           </a>
         </Link>
-        {router === "/" && category.sub_categories.data.map(c=>c.attributes).map((subCategory, inde) => (
+        {router.pathname === "/" && category.sub_categories.data.map(c=>c.attributes).map((subCategory, inde) => (
           <div key={inde} className="h-[52px] flex items-center">
             <p className="text-[#3f4064] text-xs !font-normal">{subCategory.name}</p>
           </div>
         ))}
-        {router === "/search" && category.subCategory.map((subCategory, inde) => (
+        {router.pathname === "/search" && category.subCategory.map((subCategory, inde) => (
           <div key={inde} className="h-[52px] flex items-center">
             <p className="text-[#3f4064] text-xs !font-normal">{subCategory.name}</p>
           </div>
