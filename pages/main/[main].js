@@ -2,6 +2,12 @@ import axios from "axios";
 import Navbar from "components/Navbar";
 import { ResponseToArray } from "lib/ResponseToArray";
 import Head from "next/head";
+import HomeSwiper from "components/HomeSwiper";
+import AmazingOfferSlider from "components/AmazingOfferSlider";
+import QuadrupleBanner from "components/QuadrupleBanner";
+import Image from "next/image";
+import DigistoreSuggestion from "components/DigistoreSuggestion";
+import PopularBrands from "components/PopularBrands";
 
 export default function Home({
   product,
@@ -12,10 +18,12 @@ export default function Home({
   brands,
   categories,
 }) {
+  const productLength = product.map((products) => products).length;
+
   return (
     <>
       <Head>
-        <title>فروشگاه اینترنتی دیجی‌کالا</title>
+        <title>فروشگاه اینترنتی استور</title>
         <meta
           name="description"
           content="هر آنچه که نیاز دارید با بهترین قیمت از دیجی‌کالا بخرید! جدیدترین انواع گوشی موبایل، لپ تاپ، لباس، لوازم آرایشی و بهداشتی، کتاب، لوازم خانگی، خودرو و... با امکان تعویض و مرجوعی آسان | ✓ارسال رايگان ✓پرداخت در محل ✓ضمانت بازگشت کالا - برای خرید کلیک کنید!
@@ -23,6 +31,78 @@ export default function Home({
         />
       </Head>
       <Navbar mainCategory={mainCategories} category={categories} />
+
+      <main className=" h-auto w-full max-w-screen-xl px-12 !pt-4 mx-auto">
+        <div className="rounded-xl overflow-hidden h-[400px]">
+          <HomeSwiper
+            carousel={mainCategory.sliders.data.map((c) => c.attributes)}
+          />
+        </div>
+
+        {productLength > 0 && (
+          <AmazingOfferSlider
+            key={mainCategory.id}
+            product={product}
+            color={AmazingOfferSliderColor}
+          />
+        )}
+
+        <QuadrupleBanner
+          QuardrupleBanners={mainCategory.banners.data.map((c) => c.attributes)}
+        />
+
+        <div className="w-full h-auto flex flex-col md:flex-row gap-y-5 gap-x-5 my-10">
+          <div className="relative w-full h-52 lg:h-64 rounded-lg overflow-hidden">
+            <Image
+              src="https://dkstatics-public.digikala.com/digikala-adservice-banners/25ba855e4369204f419f06eb89eb3b8335d68f5e_1672493058.jpg?x-oss-process=image/quality,q_95"
+              alt=""
+              layout="fill"
+              objectFit="fill"
+            />
+          </div>
+
+          <div className="relative w-full h-52 lg:h-64 rounded-lg overflow-hidden">
+            <Image
+              src="https://dkstatics-public.digikala.com/digikala-adservice-banners/a2388bca514ab5ec462a7c811253ebe33b3f13ba_1645096153.jpg"
+              alt=""
+              layout="fill"
+              objectFit="fill"
+            />
+          </div>
+        </div>
+
+        {productLength > 0 && <DigistoreSuggestion product={product} />}
+
+        <PopularBrands brands={brands} />
+
+        {/* banner */}
+
+        <div className="w-full h-auto flex flex-col md:flex-row gap-y-5 gap-x-5 my-10">
+          <div className="relative w-full h-52 lg:h-64 rounded-lg overflow-hidden">
+            <Image
+              src="https://dkstatics-public.digikala.com/digikala-adservice-banners/ccf429b44cea826989f5cda8a614d8ac0f94d772_1672227248.jpg?x-oss-process=image/quality,q_95"
+              alt=""
+              layout="fill"
+              objectFit="fill"
+            />
+          </div>
+
+          <div className="relative w-full h-52 lg:h-64 rounded-lg overflow-hidden">
+            <Image
+              src="https://dkstatics-public.digikala.com/digikala-adservice-banners/d5186195d5cfbde723226735a1077019e20ed9a3_1672223742.jpg?x-oss-process=image/quality,q_95"
+              alt=""
+              layout="fill"
+              objectFit="fill"
+            />
+          </div>
+        </div>
+
+        <img
+          className="rounded-lg"
+          src="https://dkstatics-public.digikala.com/digikala-adservice-banners/abede523b20e3c6fd5addcae68a54e454cb95a5e_1654948996.jpg?x-oss-process=image/quality,q_95"
+          alt=""
+        />
+      </main>
     </>
   );
 }
