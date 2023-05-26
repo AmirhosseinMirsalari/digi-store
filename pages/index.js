@@ -7,6 +7,7 @@ import Image from "next/image";
 import { useState } from "react";
 import AmazingOfferSlider from "components/AmazingOfferSlider";
 import QuadrupleBanner from "components/QuadrupleBanner";
+import DigistoreCategories from "components/DigistoreCategories";
 
 const Home = ({
   mainCategory,
@@ -105,7 +106,11 @@ const Home = ({
           );
         })}
 
+        <h5 className="text-center pt-1 text-xl font-semibold">
+          دسته‌بندی‌های دیجی استور
+        </h5>
 
+        <DigistoreCategories category={mainCategory} />
       </main>
     </>
   );
