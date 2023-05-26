@@ -111,6 +111,30 @@ const Home = ({
         </h5>
 
         <DigistoreCategories category={mainCategory} />
+
+        {/* digistore banner */}
+
+        <div className="w-full h-auto flex flex-col md:flex-row gap-y-5 gap-x-5 my-10">
+          <div className="relative w-full h-52 lg:h-64 rounded-lg overflow-hidden">
+            <Image
+              src="https://dkstatics-public.digikala.com/digikala-adservice-banners/25ba855e4369204f419f06eb89eb3b8335d68f5e_1672493058.jpg?x-oss-process=image/quality,q_95"
+              alt=""
+              layout="fill"
+              objectFit="fill"
+            />
+          </div>
+
+          <div className="relative w-full h-52 lg:h-64 rounded-lg overflow-hidden">
+            <Image
+              src="https://dkstatics-public.digikala.com/digikala-adservice-banners/a2388bca514ab5ec462a7c811253ebe33b3f13ba_1645096153.jpg"
+              alt=""
+              layout="fill"
+              objectFit="fill"
+            />
+          </div>
+        </div>
+
+        
       </main>
     </>
   );
