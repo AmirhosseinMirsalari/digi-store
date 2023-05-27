@@ -6,6 +6,7 @@ import Head from "next/head";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import ImportExportIcon from "@mui/icons-material/ImportExport";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import CloseIcon from '@mui/icons-material/Close';
 import { useRouter } from "next/router";
 import { LayoutGroup } from "framer-motion";
 import Pagination from "components/Pagination";
@@ -179,6 +180,9 @@ export default function HomePage({
 
   return (
     <div className="flex flex-col w-full h-auto ">
+      <Head>
+        <title>همه محصولات دیجی استور</title>
+      </Head>
       <Navbar mainCategory={mainCategories} category={category} />
       <div className="pt-4 w-full h-auto pb-8">
         {category
@@ -371,9 +375,9 @@ export default function HomePage({
             <div className="flex xl:hidden items-center mx-10 border border-x-0 border-t-0 pb-2">
               <div
                 onClick={openModalFilterHandler}
-                className="flex items-center"
+                className="flex items-center "
               >
-                <FilterListIcon className="w-6 h-6 fill-[#424750]" />
+                <FilterListIcon className="w-6 h-6 fill-[#424750] cursor-pointer" />
                 <span className="text-xs font-bold cursor-pointer">فیلتر</span>
               </div>
               <div className="hidden items-center mr-2">
@@ -409,7 +413,8 @@ export default function HomePage({
       >
         <div className="flex flex-col">
           {/* close */}
-          <div className="text-sm " onClick={closeModalFilterHandler}>
+          <div className="text-sm my-2 " onClick={closeModalFilterHandler}>
+            <CloseIcon className="w-6 h-6 text-red-600" />
             بستن فیلتر
           </div>
           {/* برند */}
