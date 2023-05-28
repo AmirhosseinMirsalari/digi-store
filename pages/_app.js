@@ -2,6 +2,7 @@ import axios from "axios";
 import "@/styles/globals.css";
 import { store } from "redux/store";
 import Head from "next/head";
+import Footer from "components/Footer";
 
 axios.defaults.baseURL = "http://localhost:1337/api";
 
@@ -15,6 +16,7 @@ function MyApp({ Component, pageProps, router }) {
       </Head>
 
       <Component {...pageProps} key={router.asPath} />
+      <Footer />
     </div>
   );
 }
