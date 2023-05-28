@@ -118,7 +118,7 @@ export default function MobileThumbnailSlider({
               "--swiper-pagination-color": "#fff",
             }}
             spaceBetween={10}
-            thumbs={{ swiper: thumbsSwiper }}
+            thumbs={{swiper: thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null}}
             modules={[FreeMode, Navigation, Thumbs, Pagination]}
             onSwiper={(swiper) => {
               setActiveSlider(swiper.activeIndex + 1);
