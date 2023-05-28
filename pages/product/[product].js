@@ -4,6 +4,7 @@ import React from "react";
 import { store } from "../../redux/store";
 import Head from "next/head";
 import Navbar from "components/Navbar";
+import Link from "next/link";
 
 const HomePage = ({
   product,
@@ -19,6 +20,24 @@ const HomePage = ({
         <title>{product.name} | دیجی استور</title>
       </Head>
       <Navbar mainCategory={mainCategory} category={category} />
+         {/* breadcamp */}
+         <div className="py-8 px-4 h-auto w-full items-center hidden lg:flex text-xs text-[#81858b] gap-x-4">
+          <Link href="/">
+            <a>دیجی استور</a>
+          </Link>
+          <div>/</div>
+          <Link href={`/main/${product.mainCategorySlug}`}>
+            <a>{product.mainCategory.replace("-"," ")}</a>
+          </Link>
+          <div>/</div>
+          <Link href={`/search/${product.categorySlug}`}>
+            <a>{product.category.replace("-"," ")}</a>
+          </Link>
+          <div>/</div>
+          <Link href={`/search/${product.subCategorySlug}`}>
+            <a>{product.subCategory.replace("-"," ")}</a>
+          </Link>
+        </div>
     </>
   );
 };
