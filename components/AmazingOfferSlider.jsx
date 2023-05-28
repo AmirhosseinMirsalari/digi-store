@@ -108,7 +108,7 @@ export default function AmazingOfferSlider({ color, product, key }) {
             );
           })}
           <SwiperSlide>
-            <Link href="/">
+            <Link href="/search">
               <a>
                 <div className="h-full text-center text-lg bg-white rounded-tl-lg rounded-bl-lg w-full flex flex-col justify-center items-center cursor-pointer">
                   <div className="w-12 h-12 border rounded-full mt-6 mb-4  flex justify-center items-center">
