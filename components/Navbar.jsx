@@ -25,7 +25,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { addProductToCart,removeProductFromCart  } from "redux/AddToCart";
 import logo from "../public/images/logo.png";
-import SidebarCategoryNav from "./SidebarCategoryNav";
+import SidebarCategoryNav from "./Sidebar/SidebarCategoryNav";
 
 const Navbar = ({ mainCategory, category }) => {
   // useState
@@ -349,7 +349,9 @@ const Navbar = ({ mainCategory, category }) => {
             type="text"
             placeholder="جستجو"
           />
+          <button className="mb-5" type="submit">
           <SearchOutlined className="absolute right-4 w-6 h-6 fill-[#a1a3a8] text-sm cursor-pointer font-normal" />
+          </button>
         </form>
 
         <Link href="/admin">
