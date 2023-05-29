@@ -33,9 +33,8 @@ import WhiteStar from "../../components/SingleProduct/WhiteStar";
 
 //redux
 import { addProductToCart, removeProductFromCart } from "redux/AddToCart";
-import { useDispatch,useSelector } from "react-redux";
-import { ToastContainer, toast } from 'react-toastify';
-
+import { useDispatch, useSelector } from "react-redux";
+import { ToastContainer, toast } from "react-toastify";
 
 const HomePage = ({
   product,
@@ -75,48 +74,58 @@ const HomePage = ({
     .filter((isSpecifications) => isSpecifications.isSpecifications == true);
   const propertyLength = specificationsValue.length;
 
+  // redux
+  const dispatch = useDispatch();
+  const { cart } = useSelector((data) => data.cart);
 
-    // redux
-    const dispatch = useDispatch()
-    const { cart } = useSelector(data => data.cart)
+  const addRedux = () => {
+    toast.success("محصول به سبد خرید اضافه شد", {
+      position: "bottom-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+    let countCart = cart
+      ?.map((a) => a)
+      .filter((item) => item.slug == product.slug)
+      .map((a) => a)
+      .map((a) => a.quantity);
+    countCart = countCart[0];
+    dispatch(addProductToCart(product));
+    setQuantityReduxProduct((prev) => (Number(countCart) || 0) + 1);
+  };
 
-    const addRedux = () => {
-      toast.success('محصول به سبد خرید اضافه شد', {
-        position: "bottom-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      })
-      let countCart = cart?.map(a => a).filter(item => item.slug == product.slug).map(a => a).map(a => a.quantity)
-      countCart = countCart[0]
-      dispatch(addProductToCart(product))
-      setQuantityReduxProduct((prev) => (Number(countCart) || 0) + 1)
-    }
-  
-  
-    const removeRedux = (product) => {
-      toast.error('محصول از سبد خرید کم شد', {
-        position: "bottom-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      })
-      let countCart = cart?.map(a => a).filter(item => item.slug == product.slug).map(a => a).map(a => a.quantity)
-      countCart = countCart[0]
-      dispatch(removeProductFromCart(product))
-    }
-  
-    useEffect(() => {
-      let countCart = cart?.map(a => a).filter(item => item.slug == product.slug).map(a => a).map(a => a.quantity)
-      countCart = countCart[0]
-      setQuantityReduxProduct(countCart)
-    })
+  const removeRedux = (product) => {
+    toast.error("محصول از سبد خرید کم شد", {
+      position: "bottom-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+    let countCart = cart
+      ?.map((a) => a)
+      .filter((item) => item.slug == product.slug)
+      .map((a) => a)
+      .map((a) => a.quantity);
+    countCart = countCart[0];
+    dispatch(removeProductFromCart(product));
+  };
+
+  useEffect(() => {
+    let countCart = cart
+      ?.map((a) => a)
+      .filter((item) => item.slug == product.slug)
+      .map((a) => a)
+      .map((a) => a.quantity);
+    countCart = countCart[0];
+    setQuantityReduxProduct(countCart);
+  });
 
   return (
     <>
@@ -510,6 +519,24 @@ const HomePage = ({
           </div>
         </div>
       </div>
+      {/* show toastContainer when add or minus product */}
+      <ToastContainer
+        position="top-right"
+        autoClose={2500}
+        style={{ width: "290px" }}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        toastStyle={{
+          backgroundColor: "#FFC300",
+          color: "black",
+          fontSize: "16px",
+        }}
+      />
     </>
   );
 };
