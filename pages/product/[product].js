@@ -1,7 +1,6 @@
 import axios from "axios";
 import { ResponseToArray } from "lib/ResponseToArray";
 import React, { useState, useRef, useEffect } from "react";
-import { store } from "../../redux/store";
 import Head from "next/head";
 import Navbar from "components/Navbar";
 import Link from "next/link";
@@ -10,6 +9,7 @@ import fav from "../../public/images/fav.png";
 import dynamic from "next/dynamic";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useRouter } from "next/router";
+import { toast } from "react-toastify";
 
 const DynamicChart = dynamic(
   () => import("../../components/SingleProduct/Chart"),
@@ -17,8 +17,6 @@ const DynamicChart = dynamic(
     loading: () => <p>loading...</p>,
   }
 );
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 // Import Swiper styles
 import "swiper/css";
@@ -32,18 +30,13 @@ import { Pagination, Navigation, Lazy } from "swiper";
 // icons
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
-import ThumbUpIcon from "@mui/icons-material/ThumbUp";
-import ThumbDownIcon from "@mui/icons-material/ThumbDown";
 import HelpCenterOutlinedIcon from "@mui/icons-material/HelpCenterOutlined";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import TimelineIcon from "@mui/icons-material/Timeline";
 import VerifiedUserOutlinedIcon from "@mui/icons-material/VerifiedUserOutlined";
 import LibraryAddCheckOutlinedIcon from "@mui/icons-material/LibraryAddCheckOutlined";
-import VerticalAlignBottomOutlinedIcon from "@mui/icons-material/VerticalAlignBottomOutlined";
-import LocalShippingOutlinedIcon from "@mui/icons-material/LocalShippingOutlined";
 import KeyboardArrowLeftOutlinedIcon from "@mui/icons-material/KeyboardArrowLeftOutlined";
 import ErrorOutlineOutlinedIcon from "@mui/icons-material/ErrorOutlineOutlined";
-import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
 import NoiseControlOffIcon from "@mui/icons-material/NoiseControlOff";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -63,6 +56,8 @@ import WhiteStar from "../../components/SingleProduct/WhiteStar";
 //redux
 import { addProductToCart, removeProductFromCart } from "redux/AddToCart";
 import { useDispatch, useSelector } from "react-redux";
+import { store } from "../../redux/store";
+
 
 const HomePage = ({
   product,
@@ -75,10 +70,7 @@ const HomePage = ({
   const dispatch = useDispatch();
   const [tabHeart, setTabHeart] = useState(false);
   const [hoverHeart, setHoverHeart] = useState(false);
-  const [hoverNotification, setHoverNotification] = useState(false);
   const [hoverChart, setHoverChart] = useState(false);
-  const [hoverbookmark, setHoverBookmark] = useState(false);
-  const [clickBookmark, setClickBookmark] = useState(false);
   const [productChart, setProductChart] = useState(false);
   const [showMoreProperty, setShowMoreProperty] = useState(false);
   const [showMoreSpecifications, setShowMoreSpecifications] = useState(false);
@@ -225,15 +217,7 @@ const HomePage = ({
   const { cart } = useSelector((data) => data.cart);
 
   const addRedux = () => {
-    toast.success("محصول به سبد خرید اضافه شد", {
-      position: "bottom-right",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
+    toast.success("محصول به سبد خرید اضافه شد");
     let countCart = cart
       ?.map((a) => a)
       .filter((item) => item.slug == product.slug)
@@ -245,15 +229,7 @@ const HomePage = ({
   };
 
   const removeRedux = (product) => {
-    toast.error("محصول از سبد خرید کم شد", {
-      position: "bottom-right",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
+    toast.error("محصول از سبد خرید کم شد");
     let countCart = cart
       ?.map((a) => a)
       .filter((item) => item.slug == product.slug)
@@ -2144,25 +2120,6 @@ const HomePage = ({
           </div>
         </div>
       </div>
-
-      {/* show toastContainer when add or minus product */}
-      <ToastContainer
-        position="top-right"
-        autoClose={2500}
-        style={{ width: "290px" }}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        toastStyle={{
-          backgroundColor: "#FFC300",
-          color: "black",
-          fontSize: "16px",
-        }}
-      />
     </>
   );
 };

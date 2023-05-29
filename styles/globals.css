@@ -678,3 +678,13 @@ small {
     transform: rotate(360deg);
   }
 }
+.Toastify__toast-body {
+  font-family: "Vazir" !important;
+  direction: rtl;
+}
+
+@media (max-width: 600px) {
+  .Toastify__toast-container {
+    margin-right: -16px !important;
+  }
+}

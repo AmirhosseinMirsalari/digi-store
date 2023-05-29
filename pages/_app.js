@@ -6,6 +6,9 @@ import Footer from "components/Footer";
 import Router from 'next/router';
 import { useEffect } from "react";
 import NProgress from 'nprogress'
+import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+
 
 
 axios.defaults.baseURL = "http://localhost:1337/api";
@@ -34,6 +37,7 @@ function MyApp({ Component, pageProps, router }) {
 
       <Component {...pageProps} key={router.asPath} />
       <Footer />
+      <ToastContainer />
     </div>
   );
 }
