@@ -196,7 +196,6 @@ const Navbar = ({ mainCategory, category }) => {
               <Image src={logo} width={180} height={30} />
             </Link>
           </div>
-
         </div>
         {/* <div className={open ? 'flex w-full  h-screen  z-10 fixed top-0 right-0' : 'hidden'}> */}
 
@@ -225,67 +224,6 @@ const Navbar = ({ mainCategory, category }) => {
                 </Link>
               </div>
 
-              {/* <mobile MainNavbar /> */}
-
-              <div className="w-full bg-white pr-8">
-                <ul className=" bg-white gap-y-1 w-full flex flex-col h-full items-start relative border border-x-0 border-t-0 pb-4">
-                  <Link href="" passHref>
-                    <li className="py-2 cursor-pointer">
-                      {/* <MenuOutlined className="hamburger-icon" /> */}
-                      <EggIcon className="w-[20px] h-[20px] fill-[#9e9fb1] ml-1" />
-                      <span className="text-[13px] text-[#3f4064] font-bold">
-                        سوپر مارکت
-                      </span>
-                    </li>
-                  </Link>
-
-                  <Link href="" passHref>
-                    <li className="py-2 cursor-pointer">
-                      {/* <MenuOutlined className="hamburger-icon" /> */}
-                      <LocalFireDepartmentIcon className="w-[20px] h-[20px] fill-[#9e9fb1] ml-1" />
-                      <span className="text-[13px] text-[#3f4064] font-bold">
-                        پرفروش ترین ها
-                      </span>
-                    </li>
-                  </Link>
-
-                  <Link href="" passHref>
-                    <li className="py-2 cursor-pointer">
-                      <DiscountIcon className="w-[20px] h-[20px] fill-[#9e9fb1] ml-1" />
-                      <span className="text-[13px] text-[#3f4064] font-bold">
-                        تخفیف ها و پیشنهاد ها
-                      </span>
-                    </li>
-                  </Link>
-
-                  <Link href="" passHref>
-                    <li className="py-2 cursor-pointer">
-                      <PercentIcon className="w-[20px] h-[20px] fill-[#9e9fb1] ml-1" />
-                      <span className="text-[13px] text-[#3f4064] font-bold">
-                        شگفت انگیزها
-                      </span>
-                    </li>
-                  </Link>
-
-                  <Link href="" passHref>
-                    <li className="py-2 cursor-pointer">
-                      <HelpIcon className="w-[20px] h-[20px] fill-[#9e9fb1] ml-1" />
-                      <span className="text-[13px] text-[#3f4064] font-bold">
-                        سوالی دارید؟
-                      </span>
-                    </li>
-                  </Link>
-
-                  <Link href="" passHref>
-                    <li className="py-2 cursor-pointer">
-                      <StoreMallDirectoryIcon className="w-[20px] h-[20px] fill-[#9e9fb1] ml-1" />
-                      <span className="text-[13px] text-[#3f4064] font-bold">
-                        فروشنده شوید
-                      </span>
-                    </li>
-                  </Link>
-                </ul>
-              </div>
               {/*mobile  category navbar */}
 
               <h5 className="text-sm font-bold py-6 pr-8">دسته بندی کالاها</h5>
@@ -578,52 +516,17 @@ const Navbar = ({ mainCategory, category }) => {
               </li>
               <div className="w-[1px] h-[16px] bg-[#ceced8]   absolute left-0"></div>
             </div>
-            <div className="movement  text-[12px] px-2 xl:py-2 text-[#62666D]  py-4 cursor-pointer">
-              <Link
-                href={{ pathname: "search/", query: { name: "leangchhean" } }}
-                className="flex items-center"
-              >
-                <li>
-                  <EggIcon className="w-[18px] h-[18px] fill-[#a1a3a8] ml-1" />
-                  سوپرمارکت
-                </li>
-              </Link>
-            </div>
 
-            <div className="movement  text-[12px] px-2 xl:py-2 text-[#62666D] py-4 cursor-pointer">
-              <Link href="/" className="active-a">
-                <li>
-                  <LocalFireDepartmentIcon className="w-[18px] h-[18px] fill-[#a1a3a8] ml-1" />
-                  پرفروش ترین ها
-                </li>
-              </Link>
-            </div>
-
-            <div className="movement  text-[12px] px-2 xl:py-2 text-[#62666D] py-4 cursor-pointer">
-              <Link href="/">
-                <li>
-                  <DiscountIcon className="w-[18px] h-[18px] fill-[#a1a3a8] ml-1" />
-                  تخفیف ها و پیشنهاد ها
-                </li>
-              </Link>
-            </div>
-
-            <div className="movement  text-[12px] px-2 xl:py-2 text-[#62666D] py-4 cursor-pointer flex items-center">
-              <Link href="/">
-                <a className="flex">
+            {mainCategory.map((item) => (
+              <div className="movement  text-[12px] px-2 xl:py-2 text-[#62666D]  py-4 cursor-pointer">
+                <Link href={`/main/${item.slug}`} className="flex items-center">
                   <li>
-                    <PercentIcon className="w-[18px] h-[18px] fill-[#a1a3a8] ml-1 border rounded-full" />
-                    شگفت انگیزها
+                    <Image src={`${item.thumbnail}`} width={22} height={22} />
+                    <span className="mb-5"> {item.name}</span>
                   </li>
-                </a>
-              </Link>
-            </div>
-
-            <div className="movement  text-[12px] px-2 xl:py-2 text-[#62666D] py-4 cursor-pointer">
-              <Link href="/">
-                <li>سوالی دارید؟</li>
-              </Link>
-            </div>
+                </Link>
+              </div>
+            ))}
 
             <div
               ref={tubeLights}
