@@ -7,6 +7,26 @@ import Navbar from "components/Navbar";
 import Link from "next/link";
 import Image from "next/image";
 import fav from "../../public/images/fav.png";
+import dynamic from "next/dynamic";
+import { Swiper, SwiperSlide } from "swiper/react";
+
+const DynamicChart = dynamic(
+  () => import("../../components/SingleProduct/Chart"),
+  {
+    loading: () => <p>loading...</p>,
+  }
+);
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+import "swiper/css/lazy";
+
+// import required modules
+import { Pagination, Navigation, Lazy } from "swiper";
 
 // icons
 
@@ -34,7 +54,6 @@ import WhiteStar from "../../components/SingleProduct/WhiteStar";
 //redux
 import { addProductToCart, removeProductFromCart } from "redux/AddToCart";
 import { useDispatch, useSelector } from "react-redux";
-import { ToastContainer, toast } from "react-toastify";
 
 const HomePage = ({
   product,
@@ -55,6 +74,7 @@ const HomePage = ({
   const firstCommentsCount = useRef();
   const secondCommentsCount = useRef();
   const questionsCount = useRef();
+  const smoothScrollToTopRef = useRef();
 
   const comment = comments.map((comment) => comment);
 
@@ -125,6 +145,15 @@ const HomePage = ({
       .map((a) => a.quantity);
     countCart = countCart[0];
     setQuantityReduxProduct(countCart);
+  });
+
+  // when go to the clicked related product page url with smoothy scroll to top
+  useEffect(() => {
+    smoothScrollToTopRef?.current?.childNodes.forEach((items) => {
+      items.addEventListener("click", (e) => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+    });
   });
 
   return (
@@ -519,61 +548,142 @@ const HomePage = ({
           </div>
         </div>
       </div>
+
       <div className="hidden lg:flex justify-between py-6 text-xs px-16 text-[#a1a3a8] tex-[11px] border border-b-8 mx-4 my-5">
-          <div className="flex items-center">
-            <div className="ml-1">
-              <Image
-                src="https://www.digikala.com/statics/img/svg/infosection/express-delivery.svg"
-                width={40}
-                height={40}
-              />
-            </div>
-            <p>امکان تحویل اکسپرس</p>
+        <div className="flex items-center">
+          <div className="ml-1">
+            <Image
+              src="https://www.digikala.com/statics/img/svg/infosection/express-delivery.svg"
+              width={40}
+              height={40}
+            />
           </div>
-          <div className="flex items-center">
-            <div className="ml-1">
-              <Image
-                src="https://www.digikala.com/statics/img/svg/infosection/support.svg"
-                width={40}
-                height={40}
-              />
-            </div>
-            <p>24 ساعته، 7 روز هفته</p>
+          <p>امکان تحویل اکسپرس</p>
+        </div>
+        <div className="flex items-center">
+          <div className="ml-1">
+            <Image
+              src="https://www.digikala.com/statics/img/svg/infosection/support.svg"
+              width={40}
+              height={40}
+            />
           </div>
-          <div className="flex items-center">
-            <div className="ml-1">
-              <Image
-                src="https://www.digikala.com/statics/img/svg/infosection/cash-on-delivery.svg"
-                width={40}
-                height={40}
-              />
-            </div>
+          <p>24 ساعته، 7 روز هفته</p>
+        </div>
+        <div className="flex items-center">
+          <div className="ml-1">
+            <Image
+              src="https://www.digikala.com/statics/img/svg/infosection/cash-on-delivery.svg"
+              width={40}
+              height={40}
+            />
+          </div>
 
-            <p>امکان پرداخت در محل</p>
+          <p>امکان پرداخت در محل</p>
+        </div>
+        <div className="flex items-center">
+          <div className="ml-1">
+            <Image
+              src="https://www.digikala.com/statics/img/svg/infosection/days-return.svg"
+              width={40}
+              height={40}
+            />
           </div>
-          <div className="flex items-center">
-            <div className="ml-1">
-              <Image
-                src="https://www.digikala.com/statics/img/svg/infosection/days-return.svg"
-                width={40}
-                height={40}
-              />
-            </div>
 
-            <p>هفت روز ضمانت بازگشت کالا</p>
+          <p>هفت روز ضمانت بازگشت کالا</p>
+        </div>
+        <div className="flex items-center">
+          <div className="ml-1">
+            <Image
+              src="https://www.digikala.com/statics/img/svg/infosection/original-products.svg"
+              width={40}
+              height={40}
+            />
           </div>
-          <div className="flex items-center">
-            <div className="ml-1">
-              <Image
-                src="https://www.digikala.com/statics/img/svg/infosection/original-products.svg"
-                width={40}
-                height={40}
-              />
-            </div>
 
-            <p>ضمانت اصل بودن کالا</p>
+          <p>ضمانت اصل بودن کالا</p>
+        </div>
+      </div>
+
+      {/* related products swiper */}
+      {relatedProducts.length > 0 && (
+        <div className="h-auto w-auto lg:mx-4 lg:my-4 px-4 lg:px-4 lg:py-3 rounded-lg border border-[#e0e0e2]">
+          <div className="py-3 mb-3">
+            <h5 className="text-[#0c0c0c] font-bold py-1 ">کالا های مشابه</h5>
+            <div className="w-[112px] h-[3.2px] bg-[#ef394e] mt-3"></div>
+          </div>
+          <div className="h-auto my-3">
+            <Swiper
+              slidesPerView={3}
+              breakpoints={{
+                769: {
+                  slidesPerView: 6,
+                },
+                1200: {
+                  slidesPerView: 8,
+                },
+              }}
+              spaceBetween={0}
+              // navigation ={true}
+              lazy={true}
+              preloadImages={false}
+              onLazyImageLoad={true}
+              modules={[Pagination, Navigation, Lazy]}
+              className="!h-full w-full cursor-pointer"
+            >
+              <div className="w-fit border-4 bg-green-700">
+                {relatedProducts.slice(0, 10).map((relatedProduct) => {
+                  return (
+                    <SwiperSlide>
+                      {/* <Link href={`/product/${relatedProduct.slug}`}>
+                      <a> */}
+                      <div
+                        ref={smoothScrollToTopRef}
+                        onClick={(e) => relatedProductLink(relatedProduct.slug)}
+                        className=" flex flex-col border border-t-0 border-r-0 border-b-0 px-2 cursor-pointer"
+                      >
+                        <Image
+                          src={relatedProduct.thumbnail}
+                          alt=""
+                          width="100%"
+                          height="100%"
+                          layout="responsive"
+                          objectFit="contain"
+                        />
+
+                        <h4 className="font-bold text-sm lg:text-sm mt-2 line-clamp-2 mb-3">
+                          {relatedProduct.name}
+                        </h4>
+                        <div className="flex flex-col gap-y-3 items-end mb-2">
+                          <div className="w-full mt-3 flex items-center justify-between">
+                            <span className="bg-[#ef394e] text-xs text-white rounded-xl  py-0 px-1">
+                              {relatedProduct.offer}%
+                            </span>
+                            <span className="text-xs lg:text-sm">
+                              {Math.round(
+                                (Number(relatedProduct.price) *
+                                  (100 - Number(relatedProduct.offer))) /
+                                  100
+                              ).toLocaleString()}{" "}
+                              تومان
+                            </span>
+                          </div>
+                          <div>
+                            <del className="text-xs lg:text-sm text-gray-400 ml-2 mt-1">
+                              {relatedProduct.price}
+                            </del>
+                          </div>
+                        </div>
+                      </div>
+                    </SwiperSlide>
+                  );
+                })}
+              </div>
+            </Swiper>
           </div>
         </div>
+      )}
+
       {/* show toastContainer when add or minus product */}
       <ToastContainer
         position="top-right"
