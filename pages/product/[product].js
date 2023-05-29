@@ -58,7 +58,6 @@ import { addProductToCart, removeProductFromCart } from "redux/AddToCart";
 import { useDispatch, useSelector } from "react-redux";
 import { store } from "../../redux/store";
 
-
 const HomePage = ({
   product,
   relatedProducts,
@@ -151,13 +150,14 @@ const HomePage = ({
 
   const clickCustomersQuestions = async (e) => {
     e.preventDefault();
-    await axios
-      .post(`http://localhost:3001/customersQuestion`, {
-        id: "",
-        questionsBox: questionsBox,
-        slug: router.query.product,
-      })
+    const data = {
+      questionsBox: questionsBox,
+      slug: router.query.product,
+    };
+    const res = await axios
+      .post(`/customers-questions`, { data: data })
       .then(
+        toast.success("پرسش شما پس از تایید نمایش داده می شود"),
         setOpenCustomersQuestion(false),
         setQuestionsBox(""),
         setQuestionCount(0),
@@ -168,16 +168,19 @@ const HomePage = ({
   const submitCommentHandler = async (e) => {
     e.preventDefault();
     await axios
-      .post(`http://localhost:3001/customersComment`, {
-        ...customerComment,
-        positiveComments: allPositive,
-        negativeComments: allNegative,
-        unknown: unknown,
-        slug: router.query.product,
-        rate: customerScore,
-        productName: product.name,
+      .post(`/customers-comments?populate[0]=positive_comments&populate[1]=negative_comments`, {
+        data: {
+          ...customerComment,
+          positiveComments: { data: { allPositive } },
+          negativeComments: { data: { allNegative } },
+          unknown: unknown,
+          slug: router.query.product,
+          rate: customerScore,
+          productName: product.name,
+        },
       })
       .then(
+        toast.success("نظر شما پس از تایید نمایش داده می شود"),
         setCustomerComment({
           title: "",
           name: "",
