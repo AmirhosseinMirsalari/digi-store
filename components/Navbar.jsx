@@ -23,7 +23,7 @@ import RemoveOutlinedIcon from "@mui/icons-material/RemoveOutlined";
 import HelpIcon from "@mui/icons-material/Help";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { addProductToCart,removeProductFromCart  } from "redux/AddToCart";
+import { addProductToCart, removeProductFromCart } from "redux/AddToCart";
 import logo from "../public/images/logo.png";
 import SidebarCategoryNav from "./Sidebar/SidebarCategoryNav";
 
@@ -192,13 +192,10 @@ const Navbar = ({ mainCategory, category }) => {
             <MenuIcon className="h-5" />
           </div>
           <div className="mt-7 mb-5">
-          <Image
-            src={logo}
-            width={180}
-            height={30}
-          />
+            <Link href="/">
+              <Image src={logo} width={180} height={30} />
+            </Link>
           </div>
-        
 
           <QuestionMarkIcon className="border-[2px]  rounded-lg border-black  h-5 " />
         </div>
@@ -225,12 +222,7 @@ const Navbar = ({ mainCategory, category }) => {
                 className="border-bottoom border border-t-0 border-l-0 border-r-0 pb-4 px-6 mt-8 mx-2"
               >
                 <Link href="/">
-                  <Image
-                    width={100}
-                    height={20}
-                    src={logo}
-                    alt=""
-                  />
+                  <Image width={100} height={20} src={logo} alt="" />
                 </Link>
               </div>
 
@@ -326,14 +318,9 @@ const Navbar = ({ mainCategory, category }) => {
         <div className="hidden xl:flex items-center w-auto xl:w-24 ">
           <Link href="/">
             <a className="relative  flex items-center h-full cursor-pointer">
-             <div className="mt-4">
-             <Image
-                src={logo}
-                width={115}
-                height={25}
-                alt=""
-              />
-             </div>
+              <div className="mt-4">
+                <Image src={logo} width={115} height={25} alt="" />
+              </div>
             </a>
           </Link>
         </div>
@@ -350,7 +337,7 @@ const Navbar = ({ mainCategory, category }) => {
             placeholder="جستجو"
           />
           <button className="mb-5" type="submit">
-          <SearchOutlined className="absolute right-4 w-6 h-6 fill-[#a1a3a8] text-sm cursor-pointer font-normal" />
+            <SearchOutlined className="absolute right-4 w-6 h-6 fill-[#a1a3a8] text-sm cursor-pointer font-normal" />
           </button>
         </form>
 
@@ -360,8 +347,6 @@ const Navbar = ({ mainCategory, category }) => {
             <SupervisorAccountIcon className="w-8 h-max" />
           </a>
         </Link>
-
-       
 
         {/*  basket cart modal in laptop */}
 
@@ -686,19 +671,21 @@ const Navbar = ({ mainCategory, category }) => {
                             </a>
                           </Link>
                         </li>
-                        {category.sub_categories.data.map(c=>c.attributes)?.map((subCategory) => {
-                          return (
-                            subCategory.name != "" && (
-                              <li>
-                                <Link href={`/search/${subCategory.slug}`}>
-                                  <a className="text-[#81858b] !leading-[2.17rem] text-xs h-auto w-auto ml-12 hover:text-[#ef394e]">
-                                    {subCategory.name}
-                                  </a>
-                                </Link>
-                              </li>
-                            )
-                          );
-                        })}
+                        {category.sub_categories.data
+                          .map((c) => c.attributes)
+                          ?.map((subCategory) => {
+                            return (
+                              subCategory.name != "" && (
+                                <li>
+                                  <Link href={`/search/${subCategory.slug}`}>
+                                    <a className="text-[#81858b] !leading-[2.17rem] text-xs h-auto w-auto ml-12 hover:text-[#ef394e]">
+                                      {subCategory.name}
+                                    </a>
+                                  </Link>
+                                </li>
+                              )
+                            );
+                          })}
 
                         {/* <div className="w-[285px] h-full bg-white"></div> */}
                       </>
@@ -724,22 +711,24 @@ const Navbar = ({ mainCategory, category }) => {
                           </a>
                         </Link>
                       </li>
-                      {category.sub_categories.data.map(c=>c.attributes)?.map((subCategory) => {
-                        return (
-                          subCategory.name != "" && (
-                            <li>
-                              <Link href={`/search/${subCategory.slug}`}>
-                                <a
-                                  // onClick={()=>sethover(false)}
-                                  className="text-[#81858b] !leading-[2.17rem] text-xs h-auto w-auto ml-12 hover:text-[#ef394e]"
-                                >
-                                  {subCategory.name}
-                                </a>
-                              </Link>
-                            </li>
-                          )
-                        );
-                      })}
+                      {category.sub_categories.data
+                        .map((c) => c.attributes)
+                        ?.map((subCategory) => {
+                          return (
+                            subCategory.name != "" && (
+                              <li>
+                                <Link href={`/search/${subCategory.slug}`}>
+                                  <a
+                                    // onClick={()=>sethover(false)}
+                                    className="text-[#81858b] !leading-[2.17rem] text-xs h-auto w-auto ml-12 hover:text-[#ef394e]"
+                                  >
+                                    {subCategory.name}
+                                  </a>
+                                </Link>
+                              </li>
+                            )
+                          );
+                        })}
 
                       {/* <div className="w-[285px] h-full bg-white"></div> */}
                     </>
