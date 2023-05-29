@@ -49,9 +49,9 @@ import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import DeleteIcon from "@mui/icons-material/Delete";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
-import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
-import RemoveOutlinedIcon from '@mui/icons-material/RemoveOutlined';
-import AddCircleOutlinedIcon from '@mui/icons-material/AddCircleOutlined';
+import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
+import RemoveOutlinedIcon from "@mui/icons-material/RemoveOutlined";
+import AddCircleOutlinedIcon from "@mui/icons-material/AddCircleOutlined";
 
 // component
 import SingleProductImageMagnify from "../../components/SingleProduct/ImageMagnify";
@@ -1447,7 +1447,6 @@ const HomePage = ({
                                       })}
                                     {/* <p className="text-sm text-black"></p> */}
                                   </div>
-                              
                                 </div>
                               </div>
                             );
@@ -2001,14 +2000,14 @@ const HomePage = ({
                   <h3 className="font-semibold pb-6">فروشنده</h3>
                   <div className="flex items-start">
                     <Image
-                      src="https://iili.io/hufgQj.th.png"
+                      src={fav}
                       width={24}
                       height={24}
                       objectFit="contain"
                     />
                     <div className="flex flex-col mr-3">
                       <p className="font-[15px] text-[#424750] font-normal">
-                        دیجی کالا
+                        دیجی استور
                       </p>
                       <div className="flex gap-x-1 text-sm pt-2">
                         <p className="text-[#81858b] text-[12px] font-normal">
@@ -2031,34 +2030,24 @@ const HomePage = ({
                   <div className="flex">
                     <div className="flex flex-col justify-evenly gap-y-1 stroke-[#19bfd3] items-center">
                       <LibraryAddCheckOutlinedIcon className="w-5 h-5" />
-                      <VerticalAlignBottomOutlinedIcon className="w-4 h-4" />
+                      {/* <VerticalAlignBottomOutlinedIcon className="w-4 h-4" /> */}
                     </div>
                     <div className="flex flex-col mr-3">
                       <div className="flex justify-between items-center ">
                         <h5 className=" text-[#424750] text-[15px] font-bold ml-auto">
-                          موجود در انبار دیجی کالا
+                          موجود در انبار دیجی استور
                         </h5>
                         <KeyboardArrowLeftOutlinedIcon className="" />
-                      </div>
-                      <div className="flex items-center gap-x-1 text-sm pt-2">
-                        <LocalShippingOutlinedIcon className="w-4 h-4 stroke-[#e6123d]" />
-                        <p className="text-slate-600 text-[12px] font-normal">
-                          ارسال دیجیکالا
-                        </p>
                       </div>
                     </div>
                   </div>
                 </div>
 
-                <div className="px-5 flex items-center border border-t-0 border-l-0 border-r-0 border-[#e0e0e2]  py-3">
-                  <MonetizationOnIcon className="fill-orange-500 w-5 h-5 mb-1" />
-                  <p className=" mr-3 text-[#424750] text-xs">
-                    150 امتیاز دیجی کلاب
-                  </p>
-                  <ErrorOutlineOutlinedIcon className="mr-1 w-4 h-4" />
-                </div>
-
-                <div className="productPriceBg w-full lg:px-5 px-2 sm:px-12 h-auto bottom-0 fixed lg:relative  flex justify-between items-center bg-white py-2 z-40 border border-l-0 border-r-0 border-b-0 border-gray-200 lg:flex-col-reverse lg:flex lg:items-end lg:w-full  lg:border-0 lg:gap-y-3 lg:py-3">
+                <div
+                  className={`productPriceBg w-full lg:px-5 px-2 sm:px-12 h-auto bottom-0 fixed lg:relative justify-between items-center bg-white py-2 z-[99] lg:z-0 border-2 lg:border-0 border-l-0 border-r-0 border-b-0  border-gray-200 lg:flex-col-reverse lg:flex lg:items-end lg:w-full lg:gap-y-3 lg:py-3 ${
+                    modalMobileSwiper ? "hidden" : "flex"
+                  }`}
+                >
                   {quantityReduxProduct > 0 ? (
                     <div className="flex items-center w-full">
                       {/* count */}
@@ -2091,9 +2080,9 @@ const HomePage = ({
                         </button>
                       </div>
 
-                      <div className="flex flex-col justify-start text-sm">
+                      <div className="hidden lg:flex flex-col justify-start text-sm">
                         <p>در سبد شما</p>
-                        <Link href="/cart/checkout" passHref>
+                        <Link href="/checkout/cart" passHref>
                           <p className="cursor-pointer text-blue-400">
                             مشاهده سبد خرید
                           </p>
@@ -2103,13 +2092,13 @@ const HomePage = ({
                   ) : (
                     <button
                       onClick={() => addRedux(product)}
-                      className="bg-[#ef394e] !w-full text-xs text-center text-white px-6 py-2 sm:px-32 sm:py-3 rounded-lg font-bold h-fit lg:w-full lg:px-0"
+                      className="bg-[#ef394e] !w-full text-xs text-center text-white px-6 py-2 sm:px-16 sm:py-3 md:px-32 md:py-3 rounded-lg font-bold h-fit lg:w-full lg:px-0"
                     >
-                      افزودن به سبد خرید
+                      افزودن به سبد خرید {quantityReduxProduct}
                     </button>
                   )}
                   {product.offer > 0 ? (
-                    <div className="flex flex-col gap-y-1 items-end">
+                    <div className="flex w-full lg:w-auto flex-col gap-y-1 items-end">
                       <div className="flex items-center">
                         <del className="text-xs text-gray-400">
                           {Number(product.price).toLocaleString()}
