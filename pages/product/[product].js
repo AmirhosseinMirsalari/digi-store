@@ -898,7 +898,7 @@ const HomePage = ({
                   ) : (
                     <button
                       onClick={() => addRedux(product)}
-                      className="bg-[#ef394e] text-xs text-center text-white px-6 py-2 sm:px-16 sm:py-3 md:px-32 md:py-3 rounded-lg font-bold h-fit lg:w-full lg:px-0"
+                      className="bg-[#ef394e] !w-full text-xs text-center text-white px-6 py-2 sm:px-16 sm:py-3 md:px-32 md:py-3 rounded-lg font-bold h-fit lg:w-full lg:px-0"
                     >
                       افزودن به سبد خرید {quantityReduxProduct}
                     </button>
@@ -2103,7 +2103,7 @@ const HomePage = ({
                   ) : (
                     <button
                       onClick={() => addRedux(product)}
-                      className="bg-[#ef394e] text-xs text-center text-white px-6 py-2 sm:px-32 sm:py-3 rounded-lg font-bold h-fit lg:w-full lg:px-0"
+                      className="bg-[#ef394e] !w-full text-xs text-center text-white px-6 py-2 sm:px-32 sm:py-3 rounded-lg font-bold h-fit lg:w-full lg:px-0"
                     >
                       افزودن به سبد خرید
                     </button>
