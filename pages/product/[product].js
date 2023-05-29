@@ -1375,7 +1375,7 @@ const HomePage = ({
                                     <NoiseControlOffIcon className="fill-[#e0e0e2] w-3 h-3" />
                                     <p className="text-[11px] text-[#a1a3a8]">
                                       {comment.unknown
-                                        ? "کاربر دیجی کالا"
+                                        ? "کاربر دیجی استور"
                                         : comment.name}
                                     </p>
                                   </div>
@@ -1502,7 +1502,7 @@ const HomePage = ({
                                   <NoiseControlOffIcon className="fill-[#e0e0e2] w-3 h-3" />
                                   <p className="text-[11px] text-[#a1a3a8]">
                                     {comment.unknown
-                                      ? "کاربر دیجی کالا"
+                                      ? "کاربر دیجی استور"
                                       : comment.name}
                                   </p>
                                 </div>
@@ -1764,10 +1764,10 @@ const HomePage = ({
                           </p>
 
                           <p className="text-[11px]">
-                            هرگونه نقد و نظر در خصوص سایت دیجی‌کالا، مشکلات
+                            هرگونه نقد و نظر در خصوص سایت دیجی استور مشکلات
                             دریافت خدمات و درخواست کالا و نیز گزارش تخلف فروش
                             (نظیر گزارش کالای غیراصل یا مغایر) را با ایمیل
-                            info@digikala.com یا با شماره‌ی ۶۱۹۳۰۰۰۰ - ۰۲۱ در
+                            amirhossein.mir98@gmail.com یا با شماره‌ی ۶۱۹۳۰۰۰۰ - ۰۲۱ در
                             میان بگذارید و از نوشتن آن‌ها در بخش نظرات خودداری
                             کنید.
                           </p>
@@ -1782,7 +1782,7 @@ const HomePage = ({
                           ثبت دیدگاه
                         </button>
                         <div className="px-3 py-3 text-xs break-words w-1/2 mr-4">
-                          ثبت دیدگاه به معنی موافقت با قوانین انتشار دیجی کالا
+                          ثبت دیدگاه به معنی موافقت با قوانین انتشار دیجی استور
                           است.
                         </div>
                       </div>
