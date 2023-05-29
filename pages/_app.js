@@ -12,6 +12,8 @@ import 'react-toastify/dist/ReactToastify.css';
 
 
 axios.defaults.baseURL = "http://localhost:1337/api";
+axios.defaults.headers.post['Content-Type'] = 'application/json';
+
 
 Router.events.on("routeChangeStart", () => NProgress.start());
 Router.events.on("routeChangeComplete", () => NProgress.done());
