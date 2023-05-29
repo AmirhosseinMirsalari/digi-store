@@ -191,13 +191,12 @@ const Navbar = ({ mainCategory, category }) => {
           <div onClick={openMenuHandler} className="cursor-pointer">
             <MenuIcon className="h-5" />
           </div>
-          <div className="mt-7 mb-5">
+          <div className="mt-7 mb-5 mx-auto">
             <Link href="/">
               <Image src={logo} width={180} height={30} />
             </Link>
           </div>
 
-          <QuestionMarkIcon className="border-[2px]  rounded-lg border-black  h-5 " />
         </div>
         {/* <div className={open ? 'flex w-full  h-screen  z-10 fixed top-0 right-0' : 'hidden'}> */}
 
