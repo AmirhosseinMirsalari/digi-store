@@ -684,6 +684,21 @@ const HomePage = ({
         </div>
       )}
 
+      {/* product charts */}
+      <div
+        className={`w-screen h-screen top-0 z-[999] ${
+          productChart ? "fixed flex justify-center items-center" : "hidden"
+        }`}
+      >
+        <div
+          onClick={() => setProductChart(false)}
+          className="bg-gray-500 opacity-20 w-screen h-screen absolute top-0 left-0"
+        ></div>
+        <div className="bg-white z-[99999] w-screen  lg:w-3/4 lg:h-auto">
+          <DynamicChart />
+        </div>
+      </div>
+
       {/* show toastContainer when add or minus product */}
       <ToastContainer
         position="top-right"
