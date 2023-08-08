@@ -231,6 +231,7 @@ const Navbar = ({ mainCategory, category }) => {
               <ul className="text-[13px] font-bold">
                 {mainCategory.map((mainCategory, index) => (
                   <SidebarCategoryNav
+                  key={index}
                     mainCategory={mainCategory}
                     index={index}
                     category={category}
@@ -517,8 +518,8 @@ const Navbar = ({ mainCategory, category }) => {
               <div className="w-[1px] h-[16px] bg-[#ceced8]   absolute left-0"></div>
             </div>
 
-            {mainCategory.map((item) => (
-              <div className="movement  text-[12px] px-2 xl:py-2 text-[#62666D]  py-4 cursor-pointer">
+            {mainCategory.map((item,index) => (
+              <div key={index} className="movement  text-[12px] px-2 xl:py-2 text-[#62666D]  py-4 cursor-pointer">
                 <Link href={`/main/${item.slug}`} className="flex items-center">
                   <li>
                     <Image src={`${item.thumbnail}`} width={22} height={22} />
@@ -543,9 +544,9 @@ const Navbar = ({ mainCategory, category }) => {
           onMouseLeave={pak}
         >
           <div className="w-[12%] h-full flex flex-col border border-t-0 ">
-            {mainCategory.map((mainCategory) => {
+            {mainCategory.map((mainCategory,index) => {
               return (
-                <Link href={`/main/${mainCategory.slug}`}>
+                <Link key={index} href={`/main/${mainCategory.slug}`}>
                   <a
                     className="h-full flex  items-center py-3 px-2 text-xs font-bold text-[#424750] hover:text-[#ef394e] hover:bg-[#f0f0f180] cursor-pointer"
                     onMouseEnter={(e) => hoverHandler(e)}

@@ -100,9 +100,9 @@ h-auto lg:!block relative"
       {/* thumbnail magnify image */}
       <div
         ref={zoomWrapper}
-        class="bg-white absolute left-[1%] top-48 xl:top-52 hidden overflow-hidden w-[65%] h-[600px] xl:h-[550px]  drop-shadow-2xl shadow-md rounded-md z-[1]"
+        className="bg-white absolute left-[1%] top-48 xl:top-52 hidden overflow-hidden w-[65%] h-[600px] xl:h-[550px]  drop-shadow-2xl shadow-md rounded-md z-[1]"
       >
-        <div ref={zoomPlace} class="w-full h-full absolute "></div>
+        <div ref={zoomPlace} className="w-full h-full absolute "></div>
       </div>
     </>
   );

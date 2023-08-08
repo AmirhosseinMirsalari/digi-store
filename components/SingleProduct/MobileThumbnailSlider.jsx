@@ -64,7 +64,7 @@ export default function MobileThumbnailSlider({
       >
         {product.product_images.data.map(c=>c.attributes).map((image, index) => {
           return (
-            <SwiperSlide onClick={modalImageHandler}>
+            <SwiperSlide key={index} onClick={modalImageHandler}>
               <div key={index} className="aspect-w-16 aspect-h-1 bg-white">
                 <Image
                   src={image.image}
@@ -132,7 +132,7 @@ export default function MobileThumbnailSlider({
             {productVideoLength > 0 &&
               product.product_videos.data.map(c=>c.attributes).map((video, index) => {
                 return (
-                  <SwiperSlide>
+                  <SwiperSlide key={index}>
                     <video
                       ref={videoRef}
                       key={index}
@@ -150,7 +150,7 @@ export default function MobileThumbnailSlider({
 
             {product?.product_images?.data.map(c=>c.attributes).map((image, index) => {
               return (
-                <SwiperSlide onClick={modalImageHandler}>
+                <SwiperSlide key={index} onClick={modalImageHandler}>
                   <div key={index} className="relative bg-white cursor-pointer w-full h-[360px]">
                     <Image
                       src={image.image}
@@ -181,7 +181,7 @@ export default function MobileThumbnailSlider({
               {productVideoLength > 0 &&
                 product.product_videos.data.map(c=>c.attributes).map((video, index) => {
                   return (
-                    <SwiperSlide>
+                    <SwiperSlide key={index}>
                       <div className="relative bg-white cursor-pointer rounded-lg">
                         <div className=" rounded-md overflow-hidden blur-[1px]">
                           <Image
@@ -203,7 +203,7 @@ export default function MobileThumbnailSlider({
 
               {product?.product_images?.data.map(c=>c.attributes).map((image, index) => {
                 return (
-                  <SwiperSlide onClick={modalImageHandler}>
+                  <SwiperSlide key={index} onClick={modalImageHandler}>
                     <div className=" rounded-md overflow-hidden cursor-pointer ">
                       <Image
                         src={image.image}

@@ -44,9 +44,9 @@ export default function DigistoreSuggestion({ product }) {
         {product
           .filter((products) => products.isSuggest == true)
           .slice(0, 14)
-          .map((product) => {
+          .map((product,index) => {
             return (
-              <SwiperSlide>
+              <SwiperSlide key={index}>
                   <Link href={`/product/${product.slug}`} passHref>
                   <div className="flex flex-col justify-center items-center w-full text-center border ">
                     <Image

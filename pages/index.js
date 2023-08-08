@@ -46,10 +46,11 @@ const Home = ({
 
       {/* carousel */}
 
-      {homePageDetail.map((homePage) => {
+      {homePageDetail.map((homePage, index) => {
         return (
           <HomeSwiper
             carousel={homePage.carousels.data.map((c) => c.attributes)}
+            key={new Date()}
           />
         );
       })}
@@ -107,6 +108,8 @@ const Home = ({
           return (
             <QuadrupleBanner
               QuardrupleBanners={homePage.banners.data.map((c) => c.attributes)}
+              key={new Date()}
+
             />
           );
         })}
@@ -194,7 +197,7 @@ const Home = ({
               </div>
 
               <svg
-                onClick={()=>setClick(false)}
+                onClick={() => setClick(false)}
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-6 w-6 mr-auto scale-110 cursor-pointer"
                 fill="none"
@@ -270,7 +273,6 @@ const Home = ({
             </div>
           </div>
         </div>
-        
       </main>
     </>
   );

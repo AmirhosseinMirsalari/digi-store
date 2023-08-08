@@ -168,17 +168,20 @@ const HomePage = ({
   const submitCommentHandler = async (e) => {
     e.preventDefault();
     await axios
-      .post(`/customers-comments?populate[0]=positive_comments&populate[1]=negative_comments`, {
-        data: {
-          ...customerComment,
-          positiveComments: { data: { allPositive } },
-          negativeComments: { data: { allNegative } },
-          unknown: unknown,
-          slug: router.query.product,
-          rate: customerScore,
-          productName: product.name,
-        },
-      })
+      .post(
+        `/customers-comments?populate[0]=positive_comments&populate[1]=negative_comments`,
+        {
+          data: {
+            ...customerComment,
+            positiveComments: { data: { allPositive } },
+            negativeComments: { data: { allNegative } },
+            unknown: unknown,
+            slug: router.query.product,
+            rate: customerScore,
+            productName: product.name,
+          },
+        }
+      )
       .then(
         toast.success("نظر شما پس از تایید نمایش داده می شود"),
         setCustomerComment({
@@ -753,7 +756,7 @@ const HomePage = ({
                     <ErrorOutlineOutlinedIcon className="stroke-[#81858b] mr-1 w-4 h-4" />
                     <span className="break-word text-xs leading-6 mr-3 text-[#424750]">
                       درخواست مرجوع کردن کالا در گروه لپ تاپ و الترابوک با دلیل
-                      "انصراف از خرید" تنها در صورتی قابل تایید است که کالا در
+                      انصراف از خرید تنها در صورتی قابل تایید است که کالا در
                       شرایط اولیه باشد (در صورت پلمپ بودن، کالا نباید باز شده
                       باشد).
                     </span>
@@ -949,9 +952,8 @@ const HomePage = ({
                   <ErrorOutlineOutlinedIcon className="stroke-[#81858b] mr-1 w-4 h-4" />
                   <span className="break-word text-xs leading-6 mr-3 text-[#424750]">
                     درخواست مرجوع کردن کالا در گروه لپ تاپ و الترابوک با دلیل
-                    "انصراف از خرید" تنها در صورتی قابل تایید است که کالا در
-                    شرایط اولیه باشد (در صورت پلمپ بودن، کالا نباید باز شده
-                    باشد).
+                    انصراف از خرید تنها در صورتی قابل تایید است که کالا در شرایط
+                    اولیه باشد (در صورت پلمپ بودن، کالا نباید باز شده باشد).
                   </span>
                 </div>
               </div>
@@ -1062,9 +1064,9 @@ const HomePage = ({
                 className="!h-full w-full cursor-pointer"
               >
                 <div className="w-fit border-4 bg-green-700">
-                  {relatedProducts.slice(0, 10).map((relatedProduct) => {
+                  {relatedProducts.slice(0, 10).map((relatedProduct, index) => {
                     return (
-                      <SwiperSlide>
+                      <SwiperSlide key={index}>
                         {/* <Link href={`/product/${relatedProduct.slug}`}>
                       <a> */}
                         <div
@@ -1323,7 +1325,7 @@ const HomePage = ({
                           .map((c) => c.attributes)
                           .map((sellerView, index) => {
                             return (
-                              <div className="flex flex-col pt-5">
+                              <div key={index} className="flex flex-col pt-5">
                                 <p className="text-[#424750] text-xs mb-2">
                                   {sellerView.property}
                                 </p>
@@ -1356,7 +1358,7 @@ const HomePage = ({
                         comments
                           .map((comment, index) => {
                             return (
-                              <div className="flex flex-row mt-6">
+                              <div key={index} className="flex flex-row mt-6">
                                 <div className="text-[11px] text-white font-bold max-h-[20px] bg-[#00a049] px-2 py-1 flex items-center justify-center rounded-sm min-w-[32px] ml-2 mt-1 ">
                                   {comment.rate}.0
                                 </div>
@@ -1391,7 +1393,10 @@ const HomePage = ({
                                       .map((c) => c.attributes)
                                       .map((positive, index) => {
                                         return (
-                                          <div className="flex flex-row items-end py-1">
+                                          <div
+                                            key={index}
+                                            className="flex flex-row items-end py-1"
+                                          >
                                             <div className="flex items-end ml-1">
                                               <AddIcon className="w-4 h-4 fill-[#00a049]" />
                                             </div>
@@ -1411,7 +1416,10 @@ const HomePage = ({
                                       .map((c) => c.attributes)
                                       .map((negative, index) => {
                                         return (
-                                          <div className="flex flex-row items-end py-1">
+                                          <div
+                                            key={index}
+                                            className="flex flex-row items-end py-1"
+                                          >
                                             <div className="flex items-end ml-1">
                                               <RemoveIcon className="w-4 h-4 fill-[#00a049]" />
                                             </div>
@@ -1483,7 +1491,7 @@ const HomePage = ({
                       >
                         {comment.slice(0, 10).map((comment) => {
                           return (
-                            <SwiperSlide>
+                            <SwiperSlide key={comment.id}>
                               <div
                                 key={comment.id}
                                 className="flex flex-col border h-full w-full px-4 py-4 rounded-lg"
@@ -1638,9 +1646,9 @@ const HomePage = ({
                             </div>
 
                             <div className="mt-2 w-full">
-                              {allPositive.map((positive) => {
+                              {allPositive.map((positive,index) => {
                                 return (
-                                  <div className="flex items-center py-1">
+                                  <div key={index} className="flex items-center py-1">
                                     <AddIcon className="h-4 w-4 ml-1 cursor-pointer" />
                                     <div className="break-all text-xs">
                                       {positive.description}
@@ -1672,9 +1680,9 @@ const HomePage = ({
                             </div>
 
                             <div className="mt-2 w-full">
-                              {allNegative.map((negative) => {
+                              {allNegative.map((negative,index) => {
                                 return (
-                                  <div className="flex items-center py-1">
+                                  <div key={index} className="flex items-center py-1">
                                     <AddIcon className="h-4 w-4 ml-1 cursor-pointer" />
                                     <div className="break-all text-xs">
                                       {negative.description}
@@ -1767,9 +1775,9 @@ const HomePage = ({
                             هرگونه نقد و نظر در خصوص سایت دیجی استور مشکلات
                             دریافت خدمات و درخواست کالا و نیز گزارش تخلف فروش
                             (نظیر گزارش کالای غیراصل یا مغایر) را با ایمیل
-                            amirhossein.mir98@gmail.com یا با شماره‌ی ۶۱۹۳۰۰۰۰ - ۰۲۱ در
-                            میان بگذارید و از نوشتن آن‌ها در بخش نظرات خودداری
-                            کنید.
+                            amirhossein.mir98@gmail.com یا با شماره‌ی ۶۱۹۳۰۰۰۰ -
+                            ۰۲۱ در میان بگذارید و از نوشتن آن‌ها در بخش نظرات
+                            خودداری کنید.
                           </p>
                         </div>
                       </div>
@@ -1821,9 +1829,9 @@ const HomePage = ({
                     <div className="flex flex-row lg:flex-col w-full gap-y-4 gap-x-6 lg:gap-x-0">
                       {/* users questions */}
                       {questions.length > 0 ? (
-                        questions.map((question) => {
+                        questions.map((question,index) => {
                           return (
-                            <div className="flex flex-row items-start lg:w-full  mb-4 lg:border-0 border-2 border-[#e0e0e2] h-full ">
+                            <div key={index} className="flex flex-row items-start lg:w-full  mb-4 lg:border-0 border-2 border-[#e0e0e2] h-full ">
                               <div className="text-[11px] text-white font-bold max-h-[20px]  px-2 py-1 flex items-center justify-center min-w-[32px] ml-2  w-full ">
                                 <div className="pb-2 ml-1">
                                   <HelpCenterOutlinedIcon className="w-6 h-6 fill-[#19bfd3] " />
@@ -1882,8 +1890,8 @@ const HomePage = ({
                         spaceBetween={5}
                         className="!h-full w-full mt-4 "
                       >
-                        {questions.map((question) => (
-                          <SwiperSlide>
+                        {questions.map((question,index) => (
+                          <SwiperSlide key={index}>
                             <div className="flex flex-col border h-full w-full px-4 py-4 rounded-lg cursor-pointer">
                               <h4 className="text-sm font-bold line-clamp-6 leading-6">
                                 {question.questionsBox}

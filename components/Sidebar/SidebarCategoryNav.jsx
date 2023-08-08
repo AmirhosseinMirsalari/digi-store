@@ -39,7 +39,7 @@ const SidebarCategoryNav = ({ mainCategory, index, category }) => {
         {category
           .filter((category) => category.mainCategory == mainCategory.name)
           .map((category, indexs) => (
-            <div className="bg-[#f1f2f4]">
+            <div className="bg-[#f1f2f4]" key={index}>
             
             <SidebarSubCategoryNav mainCategorySlug={mainCategory.slug} category={category} indexs={indexs} />
             </div>

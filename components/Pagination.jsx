@@ -68,7 +68,7 @@ const Pagination = ({
           >
             <AnimatePresence>
               {getPaginatedData().map((product, index) => {
-                return <RenderComponent products={product} />;
+                return <RenderComponent key={index} products={product} />;
               })}
             </AnimatePresence>
           </motion.div>

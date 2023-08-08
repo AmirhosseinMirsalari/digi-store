@@ -61,9 +61,9 @@ export default function AmazingOfferSlider({ color, product, key }) {
             </div>
           </SwiperSlide>
 
-          {product.slice(0, 8).map((offerProduct) => {
+          {product.slice(0, 8).map((offerProduct,index) => {
             return (
-              <SwiperSlide>
+              <SwiperSlide key={index}>
                 <Link href={`/product/${offerProduct.slug}`}>
                   <a>
                     <div className="bg-white h-full flex flex-col justify-between px-2 py-6 cursor-pointer">

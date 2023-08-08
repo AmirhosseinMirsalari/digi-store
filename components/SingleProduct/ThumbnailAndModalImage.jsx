@@ -1,5 +1,5 @@
 import Image from "next/image";
-import React,{useState,useEffect,useRef} from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 // Import Swiper styles
@@ -15,83 +15,82 @@ import { EffectFade, Pagination, Navigation, Lazy } from "swiper";
 import SlideshowIcon from "@mui/icons-material/Slideshow";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 
-const ThumbnailAndModalImage = ({product}) => {
+const ThumbnailAndModalImage = ({ product }) => {
+  // ref
+  const swiperRef = useRef();
 
-    // ref
-    const swiperRef = useRef();
+  // useState
+  const [slideShow, setSlideShow] = useState(0);
+  const [openSlideShow, setOpenSlideShow] = useState(false);
+  const [swipers, setSwipers] = useState("");
+  const videoRef = useRef();
 
+  const firstImage = product.product_images.data.map((c) => c.attributes)[0];
+  const secondImage = product.product_images.data.map((c) => c.attributes)[1];
+  const thirdImage = product.product_images.data.map((c) => c.attributes)[2];
+  const fourImage = product.product_images.data.map((c) => c.attributes)[3];
+  const fiveImage = product.product_images.data.map((c) => c.attributes)[4];
 
-    // useState
-    const [slideShow, setSlideShow] = useState(0);
-    const [openSlideShow, setOpenSlideShow] = useState(false);
-    const [swipers, setSwipers] = useState('');
-    const videoRef = useRef()
+  const productVideoLength = product.product_videos.data
+    .map((c) => c.attributes)
+    .filter((a) => a.video != "").length;
 
-    const firstImage = product.product_images.data.map(c=>c.attributes)[0]
-    const secondImage = product.product_images.data.map(c=>c.attributes)[1]
-    const thirdImage = product.product_images.data.map(c=>c.attributes)[2]
-    const fourImage = product.product_images.data.map(c=>c.attributes)[3]
-    const fiveImage = product.product_images.data.map(c=>c.attributes)[4]
+  const clickFirstVideo = () => {
+    setSlideShow(1);
+    setOpenSlideShow(true);
+    swipers.slideTo(0);
+  };
+  const clickFirstImage = () => {
+    setSlideShow(productVideoLength + 1);
+    setOpenSlideShow(true);
+    swipers.slideTo(productVideoLength);
+  };
 
-    const productVideoLength = product.product_videos.data.map(c=>c.attributes).filter(a=> a.video != "").length;
+  const clickSecondImage = () => {
+    setSlideShow(productVideoLength + 2);
+    setOpenSlideShow(true);
+    swipers.slideTo(productVideoLength + 1);
+  };
 
-    const clickFirstVideo = () => {
-        setSlideShow(1);
-        setOpenSlideShow(true);
-        swipers.slideTo(0);
-      };
-      const clickFirstImage = () => {
-        setSlideShow(productVideoLength + 1);
-        setOpenSlideShow(true);
-        swipers.slideTo(productVideoLength);
-      };
-    
-      const clickSecondImage = () => {
-        setSlideShow(productVideoLength + 2);
-        setOpenSlideShow(true);
-        swipers.slideTo(productVideoLength + 1);
-      };
-    
-      const clickThirdImage = () => {
-        setSlideShow(productVideoLength + 3);
-        setOpenSlideShow(true);
-        swipers.slideTo(productVideoLength + 2);
-      };
-    
-      const clickFourthImage = () => {
-        setSlideShow(productVideoLength + 4);
-        setOpenSlideShow(true);
-        swipers.slideTo(productVideoLength + 3);
-      };
-    
-      const clickFifthImage = () => {
-        setSlideShow(productVideoLength + 5);
-        setOpenSlideShow(true);
-        swipers.slideTo(productVideoLength + 4);
-      };
-    
-      const clickLastSmallImage = () => {
-        setSlideShow(1);
-        setOpenSlideShow(true);
-        swipers.slideTo(0);
-      };
-      
-      const smallModalImage = (index) => {
-        setSlideShow(index + productVideoLength + 1);
-        swipers.slideTo(index + productVideoLength);
-      };
+  const clickThirdImage = () => {
+    setSlideShow(productVideoLength + 3);
+    setOpenSlideShow(true);
+    swipers.slideTo(productVideoLength + 2);
+  };
+
+  const clickFourthImage = () => {
+    setSlideShow(productVideoLength + 4);
+    setOpenSlideShow(true);
+    swipers.slideTo(productVideoLength + 3);
+  };
+
+  const clickFifthImage = () => {
+    setSlideShow(productVideoLength + 5);
+    setOpenSlideShow(true);
+    swipers.slideTo(productVideoLength + 4);
+  };
+
+  const clickLastSmallImage = () => {
+    setSlideShow(1);
+    setOpenSlideShow(true);
+    swipers.slideTo(0);
+  };
+
+  const smallModalImage = (index) => {
+    setSlideShow(index + productVideoLength + 1);
+    swipers.slideTo(index + productVideoLength);
+  };
 
   return (
     <div>
       {/* small thumbnails */}
       <div className="hidden lg:flex items-center w-auto h-auto  py-2 px-2 z-[4]">
         {/* video */}
-        {productVideoLength > 0  && (
+        {productVideoLength > 0 && (
           <div
             onClick={clickFirstVideo}
             className="relative bg-white w-[80px] h-[80px] cursor-pointer rounded-lg ml-2 px-1 py-1 border border-[#e0e0e2]"
           >
-        
             <div className="opacity-50 blur-sm">
               <Image
                 src={product.thumbnail}
@@ -153,7 +152,6 @@ const ThumbnailAndModalImage = ({product}) => {
               productVideoLength > 0 ? "hidden xl:block" : "hidden lg:block"
             } `}
           >
-
             <Image
               src={thirdImage.image}
               alt=""
@@ -174,7 +172,6 @@ const ThumbnailAndModalImage = ({product}) => {
               productVideoLength > 0 ? "hidden 2xl:block" : "hidden xl:block"
             } `}
           >
-
             <Image
               src={fourImage.image}
               alt=""
@@ -227,9 +224,6 @@ const ThumbnailAndModalImage = ({product}) => {
           </div>
         </div>
       </div>
-
-
-      
 
       {/* modal slide show */}
 
@@ -288,8 +282,8 @@ const ThumbnailAndModalImage = ({product}) => {
                   setSwipers(swiper);
                 }}
                 onSlideChange={() => {
-                    videoRef?.current?.pause()
-                  }}
+                  videoRef?.current?.pause();
+                }}
                 onActiveIndexChange={(index) => {
                   setSlideShow(index.activeIndex + 1);
                 }}
@@ -299,45 +293,48 @@ const ThumbnailAndModalImage = ({product}) => {
                 modules={[EffectFade, Pagination, Navigation, Lazy]}
                 className=" relative cursor-pointer  w-full  h-full "
               >
-                {productVideoLength > 0 && product.product_videos.data.map(c=>c.attributes).map((video, index) => {
-                  return (
-                    <SwiperSlide>
-{video.video && (
-<div className="flex justify-center items-center">
+                {productVideoLength > 0 &&
+                  product.product_videos.data
+                    .map((c) => c.attributes)
+                    .map((video, index) => {
+                      return (
+                        <SwiperSlide key={index}>
+                          {video.video && (
+                            <div className="flex justify-center items-center">
+                              <video
+                                ref={videoRef}
+                                key={index}
+                                className="w-full h-[500px] bg-white"
+                                controls
+                              >
+                                <source
+                                  className="w-full  bg-white"
+                                  src={video.video}
+                                />
+                              </video>
+                            </div>
+                          )}
+                        </SwiperSlide>
+                      );
+                    })}
 
-<video
-  ref={videoRef}
-  key={index}
-   className='w-full h-[500px] bg-white' 
-   controls 
-   
-  >
-<source className="w-full  bg-white"  src={video.video} />
-</video>
-</div>
-)}
-                    </SwiperSlide>
-                  );
-                })}
-
-                {product.product_images.data.map(c=>c.attributes).map((image, index) => {
-                  return (
-                    <SwiperSlide>
-
-                      <Image
-                        src={image.image}
-                        alt=""
-                        width="100%"
-                        height="100%"
-                        layout="responsive"
-                        objectFit="contain"
-                      />
-                    </SwiperSlide>
-                  );
-                })}
-
+                {product.product_images.data
+                  .map((c) => c.attributes)
+                  .map((image, index) => {
+                    return (
+                      <SwiperSlide key={index}>
+                        <Image
+                          src={image.image}
+                          alt=""
+                          width="100%"
+                          height="100%"
+                          layout="responsive"
+                          objectFit="contain"
+                        />
+                      </SwiperSlide>
+                    );
+                  })}
               </Swiper>
-             
             </div>
 
             {/* left side */}
@@ -347,59 +344,59 @@ const ThumbnailAndModalImage = ({product}) => {
                 {product.name}
               </p>
               <div className="flex flex-wrap w-full">
-                {productVideoLength > 0 && product.product_videos.data.map(c=>c.attributes).map((image, index) => {
+                {productVideoLength > 0 &&
+                  product.product_videos.data
+                    .map((c) => c.attributes)
+                    .map((image, index) => {
+                      return (
+                        <div key={index}
+                          onClick={() =>
+                            smallModalImage(index - productVideoLength)
+                          }
+                          className={`w-[62px] h-[62px] bg-white rounded-lg  ml-2 mb-4 ${
+                            slideShow == index + 1
+                              ? "border-[2px] border-[#19bfd3]"
+                              : "border-[2px] border-[#e0e0e2]"
+                          }`}
+                        >
+                          <div className="rounded-lg cursor-pointer overflow-hidden">
+                            <Image
+                              src={product.thumbnail}
+                              width="100%"
+                              height="100%"
+                              layout="responsive"
+                              objectFit="contain"
+                            />
+                          </div>
+                        </div>
+                      );
+                    })}
+
+                {product.product_images.data
+                  .map((c) => c.attributes)
+                  .map((image, index) => {
                     return (
-                    <div
-                      onClick={() =>
-                        smallModalImage(index - productVideoLength)
-                      }
-                      className={`w-[62px] h-[62px] bg-white rounded-lg  ml-2 mb-4 ${
-                        slideShow == index + 1
-                          ? "border-[2px] border-[#19bfd3]"
-                          : "border-[2px] border-[#e0e0e2]"
-                      }`}
-                    >
-                      <div className="rounded-lg cursor-pointer overflow-hidden">
-                    
-
-                        <Image
-                          src={product.thumbnail}
-                          width="100%"
-                          height="100%"
-                          layout="responsive"
-                          objectFit="contain"
-                        />
-                    
+                      <div
+                      key={index}
+                        onClick={() => smallModalImage(index)}
+                        className={`w-[62px] h-[62px] bg-white rounded-lg  ml-2 mb-4 ${
+                          slideShow == index + productVideoLength + 1
+                            ? "border-[2px] border-[#19bfd3]"
+                            : "border-[2px] border-[#e0e0e2]"
+                        }`}
+                      >
+                        <div className="rounded-lg cursor-pointer overflow-hidden">
+                          <Image
+                            src={image.image}
+                            width="100%"
+                            height="100%"
+                            layout="responsive"
+                            objectFit="contain"
+                          />
+                        </div>
                       </div>
-                    </div>
-
-                    )
-                }
-                  )}
-
-                {product.product_images.data.map(c=>c.attributes).map((image, index) => {
-                  return (
-                    <div
-                      onClick={() => smallModalImage(index)}
-                      className={`w-[62px] h-[62px] bg-white rounded-lg  ml-2 mb-4 ${
-                        slideShow == index + productVideoLength + 1
-                          ? "border-[2px] border-[#19bfd3]"
-                          : "border-[2px] border-[#e0e0e2]"
-                      }`}
-                    >
-                      <div className="rounded-lg cursor-pointer overflow-hidden">
-                        
-                        <Image
-                          src={image.image}
-                          width="100%"
-                          height="100%"
-                          layout="responsive"
-                          objectFit="contain"
-                        />
-                      </div>
-                    </div>
-                  );
-                })}
+                    );
+                  })}
               </div>
             </div>
           </div>

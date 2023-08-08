@@ -68,9 +68,9 @@ export default function HomeSlider({ carousel }) {
         className="mySwiper cursor-pointer h-full w-full"
         dir="ltr"
       >
-        {carousel.map((carousel) => {
+        {carousel.map((carousel,index) => {
           return (
-            <SwiperSlide>
+            <SwiperSlide key={index}>
               <Link href={`/`}>
                 <div
                   className={`relative h-full aspect-w-2 aspect-h-1 md:aspect-w-4 md:aspect-h-1  object-cover`}

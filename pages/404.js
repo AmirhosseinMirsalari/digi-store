@@ -11,9 +11,9 @@ export default function NotFound() {
       <div className='flex flex-col items-center justify-center mt-56'>
         <h1 >صفحه ای که دنبال آن بودید پیدا نشد!</h1>
         <div className='mt-5 decoration-none mb-16 text-[#19bfd3] flex items-center'>
-          <a href='/'>
+          <Link href='/'>
             <span className='pl-1 cursor-pointer select-none'>صفحه اصلی </span>
-          </a>
+          </Link>
         </div>
         <div className='relative block'>
         <Image 
