@@ -295,18 +295,18 @@ export async function getServerSideProps({ params }) {
   const homePageDetail = ResponseToArray(homePageDetailResponse);
 
   let DigistoreSubCategoriesResponse = await axios.get(
-    "http://localhost:1337/api/digikala-sub-categoriess"
+    "/digikala-sub-categoriess"
   );
   const DigistoreSubCategories = ResponseToArray(
     DigistoreSubCategoriesResponse
   );
 
   let productResponse = await axios.get(
-    `http://localhost:1337/api/products?populate[0]=seller_views&populate[1]=product_videos&populate[2]=product_images&populate[3]=products_values`
+    `/products?populate[0]=seller_views&populate[1]=product_videos&populate[2]=product_images&populate[3]=products_values`
   );
   const product = ResponseToArray(productResponse);
 
-  let brandsResponse = await axios.get("http://localhost:1337/api/brands");
+  let brandsResponse = await axios.get("/brands");
   const brands = ResponseToArray(brandsResponse);
 
   return {
