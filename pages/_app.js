@@ -11,7 +11,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 
 
-axios.defaults.baseURL = "http://localhost:1337/api";
+axios.defaults.baseURL = "https://strpnodejs.iran.liara.run/api";
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 
 
